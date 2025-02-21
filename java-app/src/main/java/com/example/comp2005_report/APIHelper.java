@@ -25,8 +25,8 @@ public class APIHelper {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
 
-        throw new Error("Failed to get employees");
+            throw new Error("Failed to get employees");
+        }
     }
 }

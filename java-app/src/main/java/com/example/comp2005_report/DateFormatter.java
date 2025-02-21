@@ -6,10 +6,9 @@ import java.time.format.DateTimeParseException;
 
 public class DateFormatter {
 
+    /// @dateString should be formatted like so YYYY-MM-DDThh:mm:ss
     public static LocalDate parseDate(String dateString) {
         if (dateString == null) return null;
-
-        // 2025-01-01T12:12:12
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
             "yyyy-MM-dd'T'HH:mm:ss"
@@ -20,7 +19,7 @@ public class DateFormatter {
 
             return date;
         } catch (DateTimeParseException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
 
         return null;

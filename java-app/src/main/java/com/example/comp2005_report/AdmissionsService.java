@@ -21,8 +21,6 @@ public class AdmissionsService {
     public ObjectNode index() {
         String patients = APIHelper.get("/admissions");
 
-        System.out.println(patients);
-
         AdmissionClass[] admissions;
 
         try {
@@ -36,16 +34,16 @@ public class AdmissionsService {
 
         ObjectNode node = objectMapper.createObjectNode();
 
-        ArrayNode admissionsNode = node.putArray("admissions");
-
-        for (AdmissionClass admission : admissions) {
-            ObjectNode admissionNode = admissionsNode.addObject();
-
-            admissionNode.put("id", admission.id);
-            admissionNode.put("patientID", admission.patientID);
-            admissionNode.put("admissionDate", admission.admissionDate);
-            admissionNode.put("dischargeDate", admission.dischargeDate);
-        }
+//        ArrayNode admissionsNode = node.putArray("admissions");
+//
+//        for (AdmissionClass admission : admissions) {
+//            ObjectNode admissionNode = admissionsNode.addObject();
+//
+//            admissionNode.put("id", admission.id);
+//            admissionNode.put("patientID", admission.patientID);
+//            admissionNode.put("admissionDate", admission.admissionDate);
+//            admissionNode.put("dischargeDate", admission.dischargeDate);
+//        }
 
         int[] most = new int[12];
 
