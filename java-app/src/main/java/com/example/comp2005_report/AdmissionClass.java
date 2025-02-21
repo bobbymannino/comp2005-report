@@ -2,6 +2,8 @@ package com.example.comp2005_report;
 
 import org.springframework.lang.NonNull;
 
+import java.time.LocalDate;
+
 public class AdmissionClass {
     @NonNull
     public int id;
@@ -21,5 +23,13 @@ public class AdmissionClass {
         this.admissionDate = admissionDate;
         this.dischargeDate = dischargeDate;
         this.patientID = patientID;
+    }
+
+    public LocalDate getAdmissionDateParsed() {
+        return DateFormatter.parseDate(this.admissionDate);
+    }
+
+    public LocalDate getDischargeDateParsed() {
+        return DateFormatter.parseDate(this.dischargeDate);
     }
 }

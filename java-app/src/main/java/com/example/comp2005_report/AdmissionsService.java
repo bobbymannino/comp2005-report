@@ -81,7 +81,8 @@ public class AdmissionsService {
             }
         }
 
-        node.put("mostMonth", months[maxIndex]);
+        node.put("busiestMonth", months[maxIndex]);
+        node.put("admissions", max);
 
         return node;
     }
