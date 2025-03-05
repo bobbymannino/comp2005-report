@@ -6,12 +6,12 @@ import java.time.LocalDate;
 
 public class AdmissionClass {
     @NonNull
-    public int id;
+    public Integer id;
     @NonNull
     public String admissionDate;
     public String dischargeDate;
     @NonNull
-    public int patientID;
+    public Integer patientID;
 
     public AdmissionClass(
             int id,
@@ -24,6 +24,7 @@ public class AdmissionClass {
         this.dischargeDate = dischargeDate;
         this.patientID = patientID;
     }
+
 
     public LocalDate getAdmissionDateParsed() {
         return DateFormatter.parseDate(this.admissionDate);
