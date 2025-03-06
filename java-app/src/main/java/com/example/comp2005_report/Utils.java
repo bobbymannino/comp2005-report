@@ -1,7 +1,15 @@
 package com.example.comp2005_report;
 
+import org.springframework.lang.NonNull;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class Utils {
     static Integer[] removeDuplicates(Integer[] array) {
@@ -32,5 +40,12 @@ public class Utils {
         }
 
         return setA.toArray(Integer[]::new);
+    }
+
+    /// This returns the difference in days from date1 compared to date2
+    static double differenceInDays(@NonNull Date date1, @NonNull Date date2) {
+        long diff = date1.getTime() - date2.getTime();
+
+        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
 }

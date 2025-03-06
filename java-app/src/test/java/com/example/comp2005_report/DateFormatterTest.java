@@ -2,7 +2,7 @@ package com.example.comp2005_report;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,11 +29,11 @@ class DateFormatterTest {
     void parsedDate() {
         String dateString = "1979-12-22T15:00:00";
 
-        LocalDate date = DateFormatter.parseDate(dateString);
+        Date date = DateFormatter.parseDate(dateString);
 
-        assertEquals(12, date.getMonthValue());
+        assertEquals(12, date.getMonth());
         assertEquals(1979, date.getYear());
-        assertEquals(22, date.getDayOfMonth());
-        assertEquals(false, date.isLeapYear());
+        assertEquals(22, date.getDay());
+        assertEquals(15, date.getHours());
     }
 }

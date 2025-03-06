@@ -2,7 +2,7 @@ package com.example.comp2005_report;
 
 import org.springframework.lang.NonNull;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class AdmissionClass {
     @NonNull
@@ -26,11 +26,11 @@ public class AdmissionClass {
     }
 
 
-    public LocalDate getAdmissionDateParsed() {
+    public Date getAdmissionDateParsed() {
         return DateFormatter.parseDate(this.admissionDate);
     }
 
-    public LocalDate getDischargeDateParsed() {
+    public Date getDischargeDateParsed() {
         return DateFormatter.parseDate(this.dischargeDate);
     }
 }
