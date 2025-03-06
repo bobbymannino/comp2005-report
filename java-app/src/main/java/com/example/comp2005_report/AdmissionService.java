@@ -55,19 +55,17 @@ public class AdmissionService {
 //            I may come back to it later on, and it saves me writing it again
 //            System.out.println("Patient #" + patientId + " has " + patientAdmissions.size() + " admissions");
 
-            for (var i = 0; i < patientAdmissions.size(); i++) {
-                AdmissionClass a = patientAdmissions.get(i);
-
+            for (AdmissionClass a : patientAdmissions) {
                 // If the patient is already in the list then who cares about the
                 // rest of the admissions for them
                 if (patientIdsWhoHaveBeenReadmitted.contains(a.patientID)) break;
 
-                for (var x = 0; x < patientAdmissions.size(); x++) {
-                    AdmissionClass b = patientAdmissions.get(x);
-
-                    // That's enough of that thank you very much :)
+                for (AdmissionClass b : patientAdmissions) {
+                    // If the patient is already in the list then who cares about the
+                    // rest of the admissions for them
                     if (patientIdsWhoHaveBeenReadmitted.contains(b.patientID)) break;
 
+                    // if the admission records are the same, discard
                     if (a.id.equals(b.id)) continue;
 
                     // if a.admission < b.discharge + 7 then add patient to list
@@ -75,7 +73,10 @@ public class AdmissionService {
                     if (dischargeDate == null) continue;
                     Date admissionDate = a.getAdmissionDateParsed();
 
-                    if (Utils.differenceInDays(admissionDate, dischargeDate) <= 7.0) patientIdsWhoHaveBeenReadmitted.add(a.patientID);
+                    double diff = Utils.differenceInDays(admissionDate, dischargeDate);
+
+                    // difference must be more than discharge date but less (or =) then a week
+                    if (0.0 <= diff && diff <= 7.0) patientIdsWhoHaveBeenReadmitted.add(a.patientID);
                 }
             }
         });

@@ -43,6 +43,8 @@ public class Utils {
     }
 
     /// This returns the difference in days from date1 compared to date2
+    /// @example
+    /// if date1 is 22nd December and date2 is December 20th, you will get 2.0
     static double differenceInDays(@NonNull Date date1, @NonNull Date date2) {
         long diff = date1.getTime() - date2.getTime();
 
