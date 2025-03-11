@@ -1,5 +1,6 @@
 package com.example.library.forms;
 
+import com.example.library.records.Patient;
 import com.example.library.utils.*;
 
 import javax.swing.*;
@@ -8,6 +9,7 @@ public class InadmittedPatients extends JFrame {
     private JPanel contentPane;
     private JButton closeButton;
     private JProgressBar loadingBar;
+    private JLabel label;
 
     public InadmittedPatients() {
         setTitle("Never Admitted Patients");
@@ -30,8 +32,12 @@ public class InadmittedPatients extends JFrame {
             String res = ApiService.get(ApiBase.LOCAL, "/admissions/never");
             Integer[] patientIds = StringParser.parse(res, Integer[].class);
 
-            for (Integer pId : patientIds) {
-                System.out.println(pId);
+            for (Integer patientId : patientIds) {
+                res = ApiService.get(ApiBase.UNI, "/patients/" + patientId);
+                Patient patient = StringParser.parse(res, Patient.class);
+
+                String curr = label.getText();
+                label.setText(curr + " - #" + patient.id);
             }
 
             loadingBar.setVisible(false);

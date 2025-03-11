@@ -11,6 +11,7 @@ public class StringParser {
         try {
             return mapper.readValue(str, klass);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new StringParseError("Unable to parse string: " + str);
         }
     }
