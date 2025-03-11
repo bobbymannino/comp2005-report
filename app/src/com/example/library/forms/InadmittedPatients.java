@@ -1,8 +1,6 @@
 package com.example.library.forms;
 
-import com.example.library.utils.ApiBase;
-import com.example.library.utils.ApiError;
-import com.example.library.utils.ApiService;
+import com.example.library.utils.*;
 
 import javax.swing.*;
 
@@ -30,11 +28,16 @@ public class InadmittedPatients extends JFrame {
     private void getInadmittedPatients() {
         try {
             String res = ApiService.get(ApiBase.LOCAL, "/admissions/never");
-            // Turn res into Integer[]
+            Integer[] patientIds = StringParser.parse(res, Integer[].class);
+
+            for (Integer pId : patientIds) {
+                System.out.println(pId);
+            }
 
             loadingBar.setVisible(false);
-        } catch (ApiError e) {
-            throw new RuntimeException(e);
+        } catch (ApiError | StringParseError e) {
+            // TODO handle error
+            System.out.println(e.getMessage());
         }
     }
 }
