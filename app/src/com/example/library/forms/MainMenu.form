@@ -14,7 +14,7 @@
         </constraints>
         <properties>
           <font name="Fira Mono"/>
-          <text value="Patients Who Have Not Been Admitted"/>
+          <text value="Never Admitted Patients"/>
         </properties>
       </component>
       <component id="a678a" class="javax.swing.JLabel">

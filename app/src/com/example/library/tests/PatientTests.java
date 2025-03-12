@@ -9,11 +9,12 @@ import org.junit.platform.commons.annotation.Testable;
 public class PatientTests {
     @Test
     public void asItShouldBe() {
-        Patient patient = new Patient(1, "Lucy", "Ward", "221279");
+        Patient patient = new Patient(1, "Ward", "Lucy", "221279");
 
         assert patient.id == 1;
-        assert patient.forename.equals("Lucy");
-        assert patient.surname.equals("Ward");
+        assert patient.firstName.equals("Lucy");
+        assert patient.lastName.equals("Ward");
         assert patient.nhsNumber.equals("221279");
+        assert patient.getFullName().equals("Lucy Ward");
     }
 }

@@ -35,8 +35,8 @@ public class StringParsesTests {
             Patient patient = StringParser.parse(raw, Patient.class);
 
             assert patient.id == 1;
-            assert patient.forename.equals("Bob");
-            assert patient.surname.equals("Watt");
+            assert patient.firstName.equals("Bob");
+            assert patient.lastName.equals("Watt");
             assert patient.nhsNumber.equals("221279");
         } catch (Exception e){
             // If it reaches this fail, as it should pass

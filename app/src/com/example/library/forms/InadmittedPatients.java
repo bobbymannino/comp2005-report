@@ -4,12 +4,14 @@ import com.example.library.records.Patient;
 import com.example.library.utils.*;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class InadmittedPatients extends JFrame {
     private JPanel contentPane;
     private JButton closeButton;
     private JProgressBar loadingBar;
-    private JLabel label;
+    private JLabel titleLabel;
+    private JList list1;
 
     public InadmittedPatients() {
         setTitle("Never Admitted Patients");
@@ -17,6 +19,7 @@ public class InadmittedPatients extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
+        setSize(500, 500);
 
         closeButton.addActionListener((event) -> {
             setVisible(false);
@@ -32,18 +35,22 @@ public class InadmittedPatients extends JFrame {
             String res = ApiService.get(ApiBase.LOCAL, "/admissions/never");
             Integer[] patientIds = StringParser.parse(res, Integer[].class);
 
+            titleLabel.setText("Never Admitted Patients (" + patientIds.length + ")");
+
+            loadingBar.setVisible(false);
+
+            DefaultListModel listModel = new DefaultListModel();
+
             for (Integer patientId : patientIds) {
                 res = ApiService.get(ApiBase.UNI, "/patients/" + patientId);
                 Patient patient = StringParser.parse(res, Patient.class);
 
-                String curr = label.getText();
-                label.setText(curr + " - #" + patient.id);
+                listModel.addElement(patient.getFullName());
             }
 
-            loadingBar.setVisible(false);
+            list1.setModel(listModel);
         } catch (ApiError | StringParseError e) {
             // TODO handle error
-            System.out.println(e.getMessage());
         }
     }
 }

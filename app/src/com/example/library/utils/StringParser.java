@@ -2,8 +2,6 @@ package com.example.library.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.IOException;
-
 public class StringParser {
     private static final ObjectMapper mapper = new ObjectMapper();
 
@@ -11,7 +9,6 @@ public class StringParser {
         try {
             return mapper.readValue(str, klass);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             throw new StringParseError("Unable to parse string: " + str);
         }
     }

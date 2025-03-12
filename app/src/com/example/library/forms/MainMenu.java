@@ -5,7 +5,6 @@ import javax.swing.*;
 public class MainMenu extends JFrame {
     private JPanel contentPane;
     private JButton patientsWhoHaveNotButton;
-    private JFrame inadmittedPatientsFrame;
 
     public MainMenu() {
         setTitle("COMP2005 Java App");
@@ -13,15 +12,12 @@ public class MainMenu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
+        setSize(500, 500);
 
         patientsWhoHaveNotButton.addActionListener((event) -> {
-            openInadmittedPatients();
+            new InadmittedPatients();
         });
 
         setVisible(true);
-    }
-
-    public void openInadmittedPatients() {
-        inadmittedPatientsFrame = new InadmittedPatients();
     }
 }
