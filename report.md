@@ -3,16 +3,27 @@
 By Bobby Mannino
 
 [https://github.com/bobbymannino/comp2005-report](https://github.com/bobbymannino/comp2005-report)
+
 [youtube-video-here](https://youtu.be)
 
-## Requirements & Analysis
+## Test Plan
+
+### Units Tests
+
+### Integration Tests
+
+### Functional Tests
+
+### Usability Tests
 
 ## Evaluation
 
-Me and sir spoke about wether to return objects or patient ids from each
-endpoint, we decided that being consistent matters more, so aslong as im
-consistent, it doesnt matter
+---
 
-use [JISC](onlinesurverys.ac.uk) for questionaires
+Me and sir spoke about weather to return objects or patient ids from each
+endpoint, we decided that being consistent matters more, so as long as im
+consistent, it doesn't matter
+
+use [JISC](onlinesurverys.ac.uk) for questionnaires
 
 use AAA, assert, act, arrange
