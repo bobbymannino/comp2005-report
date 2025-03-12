@@ -14,3 +14,5 @@ endpoint, we decided that being consistent matters more, so aslong as im
 consistent, it doesnt matter
 
 use [JISC](onlinesurverys.ac.uk) for questionaires
+
+use AAA, assert, act, arrange
