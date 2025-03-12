@@ -13,6 +13,7 @@ public class MainMenu extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setSize(500, 500);
+        setResizable(false);
 
         patientsWhoHaveNotButton.addActionListener((event) -> {
             new InadmittedPatients();

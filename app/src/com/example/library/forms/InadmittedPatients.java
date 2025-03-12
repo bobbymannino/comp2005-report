@@ -4,13 +4,14 @@ import com.example.library.records.Patient;
 import com.example.library.utils.*;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class InadmittedPatients extends JFrame {
     private JPanel contentPane;
+    private JLabel titleLabel;
     private JButton closeButton;
     private JProgressBar loadingBar;
-    private JLabel titleLabel;
     private JList list1;
 
     public InadmittedPatients() {
@@ -20,6 +21,7 @@ public class InadmittedPatients extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setSize(500, 500);
+        setResizable(false);
 
         closeButton.addActionListener((event) -> {
             setVisible(false);
@@ -45,12 +47,28 @@ public class InadmittedPatients extends JFrame {
                 res = ApiService.get(ApiBase.UNI, "/patients/" + patientId);
                 Patient patient = StringParser.parse(res, Patient.class);
 
-                listModel.addElement(patient.getFullName());
+                listModel.addElement("#" + patient.id + " - " + patient.getFullName());
             }
 
             list1.setModel(listModel);
+
+            list1.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent event) {
+                    if (event.getClickCount() == 2) {
+                        JList list = (JList) event.getSource();
+
+                        // FIXME it is not getting the button that was clicked
+                        Integer index = list.locationToIndex(event.getPoint());
+                        openPatientDetailsWindow(index);
+                    }
+                }
+            });
         } catch (ApiError | StringParseError e) {
             // TODO handle error
         }
+    }
+
+    private void openPatientDetailsWindow(Integer patientId) {
+        new PatientDetails(patientId);
     }
 }

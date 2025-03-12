@@ -2,8 +2,6 @@ package com.example.comp2005_report;
 
 import org.springframework.lang.NonNull;
 
-import java.time.LocalDate;
-
 public class PatientClass {
     @NonNull
     public Integer id;
