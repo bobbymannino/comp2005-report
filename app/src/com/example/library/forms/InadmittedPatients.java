@@ -55,11 +55,8 @@ public class InadmittedPatients extends JFrame {
             list1.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent event) {
                     if (event.getClickCount() == 2) {
-                        JList list = (JList) event.getSource();
-
-                        // FIXME it is not getting the button that was clicked
-                        Integer index = list.locationToIndex(event.getPoint());
-                        openPatientDetailsWindow(index);
+                        Integer index = list1.locationToIndex(event.getPoint());
+                        openPatientDetailsWindow(patientIds[index]);
                     }
                 }
             });
