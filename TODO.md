@@ -1,20 +1,20 @@
 # TODO
 
-- [x] Impliment API
+- [x] Implement API
   - [x] Never admitted patients
   - [x] Readmitted patients within 7 days
   - [x] Most admitted patients month
   - [x] Patients who have had more then 1 staff
-- [x] Impliment app
+- [x] Implement app
   - [x] Never admitted patients
   - [x] Patient details
 - [ ] Test API
     - [ ] Unit tests
-    - [ ] Intergration testing
+    - [ ] Integration testing
     - [ ] System tests
 - [ ] Test app
   - [ ] Unit tests
-  - [ ] Intergration testing
+  - [ ] Integration testing
   - [ ] System tests
   - [ ] Usability tests
     - [ ] Make changes based on response
