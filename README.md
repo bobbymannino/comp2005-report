@@ -18,3 +18,9 @@ urls:
 - [http://localhost:8080/admissions/re](http://localhost:8080/admissions/re)
 - [http://localhost:8080/admissions/never](http://localhost:8080/admissions/never)
 - [http://localhost:8080/admissions/most](http://localhost:8080/admissions/most)
+
+## App
+
+To run the app you can use the same command but with the app file: `java -jar
+app.jar`. This will open the window, where you can interact with the
+application.
