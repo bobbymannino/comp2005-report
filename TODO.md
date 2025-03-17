@@ -1,0 +1,27 @@
+# TODO
+
+- [x] Impliment API
+  - [x] Never admitted patients
+  - [x] Readmitted patients within 7 days
+  - [x] Most admitted patients month
+  - [x] Patients who have had more then 1 staff
+- [x] Impliment app
+  - [x] Never admitted patients
+  - [x] Patient details
+- [ ] Test API
+    - [ ] Unit tests
+    - [ ] Intergration testing
+    - [ ] System tests
+- [ ] Test app
+  - [ ] Unit tests
+  - [ ] Intergration testing
+  - [ ] System tests
+  - [ ] Usability tests
+    - [ ] Make changes based on response
+- [ ] Write report
+  - [ ] Intro
+  - [ ] Test plan
+  - [ ] Table of test types and examples
+  - [ ] Instructions on how to run tests/programs
+  - [ ] Evaluation
+- [ ] YouTube video
