@@ -4,6 +4,7 @@ import com.example.library.records.Patient;
 import com.example.library.utils.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,6 +14,7 @@ public class InadmittedPatients extends JFrame {
     private JButton closeButton;
     private JProgressBar loadingBar;
     private JList list1;
+    private JLabel label;
 
     public InadmittedPatients() {
         setTitle("Never Admitted Patients");
@@ -60,8 +62,16 @@ public class InadmittedPatients extends JFrame {
                     }
                 }
             });
-        } catch (ApiError | StringParseError e) {
+
+            label.setText("Double click a patient to see their details");
+        } catch (ApiError e) {
             // TODO handle error
+
+            label.setForeground(Color.RED);
+            label.setText("The API has failed, please try again by closing and reopending the application. If that does not work the API may be down, in that case contact support.");
+        } catch (StringParseError e ) {
+            label.setForeground(Color.RED);
+            label.setText("The API returned malformed data");
         }
     }
 
