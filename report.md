@@ -1,10 +1,16 @@
 # 2005 Report
 
-By Bobby Mannino
+Name: Bobby Mannino
 
-[https://github.com/bobbymannino/comp2005-report](https://github.com/bobbymannino/comp2005-report)
+GitHub Repo: [https://github.com/bobbymannino/comp2005-report](https://github.com/bobbymannino/comp2005-report)
 
-[youtube-video-here](https://youtu.be)
+YouTube Video: [youtube-video-here](https://youtu.be)
+
+## Introduction
+
+I have been tasked with creating an API that interacts with a predefined APi,
+and an application that interacts with my API. Along with this I need to test
+(and document the tests) that everything works using multiple testing methods.
 
 ## Test Plan
 
@@ -38,6 +44,13 @@ _DELETE NOTES BEFORE SUBMITTING_
     (environment)
 - mention about the port, what if it is in use?
 - handle error if service is down, what to show user?
+
+### Cognitive walkthrough
+
+1) is the user on the right track
+2) is step visible (next action)
+3) is it labeled well
+4) feedback
 
 ### Test Plan
 
