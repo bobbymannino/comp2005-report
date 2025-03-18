@@ -5,7 +5,7 @@ public class APIHelper {
     private static String BASE =
             "https://web.socem.plymouth.ac.uk/COMP2005/api";
 
-    public static String get(String path) {
+    public static String get(String path) throws ApiError {
         try {
             java.net.URL url = new java.net.URL(BASE + path);
             java.net.HttpURLConnection conn =
@@ -24,9 +24,7 @@ public class APIHelper {
                 return response.toString();
             }
         } catch (Exception e) {
-            e.printStackTrace();
-
-            throw new Error("Failed to get employees");
+            throw new ApiError("Failed to reach the API");
         }
     }
 }
