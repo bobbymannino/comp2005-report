@@ -3,6 +3,8 @@ package com.example.comp2005_report;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,12 +21,20 @@ public class PatientService {
 
     /// A list of patients who have had > 1 member of staff
     @GetMapping("/patients/multi-staff")
-    public ArrayNode getReadmittedAdmissions() {
+    public ResponseEntity<ObjectNode> getReadmittedAdmissions() {
         // create a hashmap key: patientId, value: employeeId[]
         HashMap<Integer, List<Integer>> patients = new HashMap<>();
 
         // get all allocations
-        String allocationsStr = APIHelper.get("/allocations");
+        String allocationsStr;
+
+        try {
+            allocationsStr = APIHelper.get("/allocations");
+        } catch (ApiError e) {
+            return APIHelper.httpErrorResponse();
+        }
+
+
         AllocationClass[] allocations;
         try {
             allocations = objectMapper.readValue(allocationsStr, AllocationClass[].class);
@@ -35,7 +45,14 @@ public class PatientService {
         // for each allocation:
         for (AllocationClass allocation : allocations) {
             // - get admission
-            String admissionStr = APIHelper.get("/admissions/" + allocation.admissionID);
+            String admissionStr;
+
+            try {
+                admissionStr = APIHelper.get("/admissions/" + allocation.admissionID);
+            } catch (ApiError e) {
+                return APIHelper.httpErrorResponse();
+            }
+
             AdmissionClass admission;
             try {
                 admission = objectMapper.readValue(admissionStr, AdmissionClass.class);
@@ -71,6 +88,10 @@ public class PatientService {
             res.add(patientID);
         }
 
-        return res;
+        ObjectNode result = objectMapper.createObjectNode();
+
+        result.set("patients", res);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

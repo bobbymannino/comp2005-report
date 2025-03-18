@@ -3,11 +3,11 @@ package com.example.comp2005_report;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
@@ -21,11 +21,19 @@ public class AdmissionService {
 
     /// These are patients that have been re-admitted within 7 days of being discharged
     @GetMapping("/admissions/re")
-    public ArrayNode getReadmittedAdmissions() {
-        /// Get all admissions and turn it into an array of objects
-        String admissionsStr = APIHelper.get("/admissions");
+    public ResponseEntity<ObjectNode> getReadmittedAdmissions() {
+        String admissionsStr;
+
+        try {
+            // Get all admissions (as string)
+            admissionsStr = APIHelper.get("/admissions");
+        } catch (ApiError e) {
+            return APIHelper.httpErrorResponse();
+        }
+
         AdmissionClass[] admissions;
         try {
+            // Turn string into data i can work with
             admissions = objectMapper.readValue(admissionsStr, AdmissionClass[].class);
         } catch (Exception e) {
             throw new Error("Failed to parse AdmissionClass[]");
@@ -87,13 +95,24 @@ public class AdmissionService {
             arr.add(i);
         }
 
-        return arr;
+        ObjectNode res = objectMapper.createObjectNode();
+
+        res.set("admissions", arr);
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     /// These are patients who have never been admitted
     @GetMapping("/admissions/never")
-    public ArrayNode getNeverBeenAdmitted() {
-        String admissionsStr = APIHelper.get("/admissions");
+    public ResponseEntity<ObjectNode> getNeverBeenAdmitted() {
+        String admissionsStr;
+
+        try {
+            admissionsStr = APIHelper.get("/admissions");
+        } catch (ApiError e) {
+            return APIHelper.httpErrorResponse();
+        }
+
         AdmissionClass[] admissions;
         try {
             admissions = objectMapper.readValue(admissionsStr, AdmissionClass[].class);
@@ -101,7 +120,14 @@ public class AdmissionService {
             throw new RuntimeException(e);
         }
 
-        String patientsStr = APIHelper.get("/patients");
+        String patientsStr;
+
+        try {
+            patientsStr = APIHelper.get("/patients");
+        } catch (ApiError e) {
+            return APIHelper.httpErrorResponse();
+        }
+
         PatientClass[] patients;
         try {
             patients = objectMapper.readValue(patientsStr, PatientClass[].class);
@@ -123,14 +149,25 @@ public class AdmissionService {
             arr.add(id);
         }
 
+        ObjectNode res = objectMapper.createObjectNode();
+
+        res.set("admissions", arr);
+
         // Return a list of patient IDs that have not been admitted
-        return arr;
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     // The month with the most admissions
     @GetMapping("/admissions/most")
-    public ObjectNode index() {
-        String admissionsStr = APIHelper.get("/admissions");
+    public ResponseEntity<ObjectNode> index() {
+        String admissionsStr;
+
+        try {
+            admissionsStr = APIHelper.get("/admissions");
+        } catch (ApiError e) {
+            return APIHelper.httpErrorResponse();
+        }
+
         AdmissionClass[] admissions;
         try {
             admissions = objectMapper.readValue(admissionsStr, AdmissionClass[].class);
@@ -178,6 +215,6 @@ public class AdmissionService {
         node.put("busiestMonth", months[maxIndex]);
         node.put("admissions", max);
 
-        return node;
+        return new ResponseEntity<>(node, HttpStatus.OK);
     }
 }

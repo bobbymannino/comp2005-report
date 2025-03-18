@@ -1,5 +1,9 @@
 package com.example.comp2005_report;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 public class APIHelper {
 
     private static String BASE =
@@ -26,5 +30,11 @@ public class APIHelper {
         } catch (Exception e) {
             throw new ApiError("Failed to reach the API");
         }
+    }
+
+    public static ResponseEntity<ObjectNode> httpErrorResponse() {
+        HttpErrorResponse error = new HttpErrorResponse(500, "The API is not working at the moment, please try again later.");
+
+        return new ResponseEntity<>(error.toObjectNode(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
