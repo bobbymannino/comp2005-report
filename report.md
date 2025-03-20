@@ -12,6 +12,13 @@ I have been tasked with creating an API that interacts with a predefined APi,
 and an application that interacts with my API. Along with this I need to test
 (and document the tests) that everything works using multiple testing methods.
 
+### API Routes
+
+- [Patients with multiple staff](http://localhost:8080/patients/multi-staff)
+- [Readmitted patients within 7 days of release](http://localhost:8080/admissions/re)
+- [Patients who have never been admitted](http://localhost:8080/admissions/never)
+- [Month with the most admissions](http://localhost:8080/admissions/most)
+
 ## Test Plan
 
 ### Units Tests
