@@ -14,7 +14,7 @@ public class InadmittedPatients extends JFrame {
     private JButton closeButton;
     private JProgressBar loadingBar;
     private JList list1;
-    private JLabel label;
+    private JTextArea hintTextArea;
 
     public InadmittedPatients() {
         setTitle("Never Admitted Patients");
@@ -35,8 +35,8 @@ public class InadmittedPatients extends JFrame {
     }
 
     private void showError(String message) {
-        label.setForeground(Color.RED);
-        label.setText(message);
+        hintTextArea.setForeground(Color.RED);
+        hintTextArea.setText(message);
     }
 
     private void getInadmittedPatients() {
@@ -47,6 +47,9 @@ public class InadmittedPatients extends JFrame {
         } catch (ApiError e) {
             showError("The API has failed, please try again by closing and reopending the application. If that does not work the API may be down, in that case contact support.");
 
+            loadingBar.setVisible(false);
+            list1.setVisible(false);
+
             return;
         }
 
@@ -56,6 +59,9 @@ public class InadmittedPatients extends JFrame {
             patientIds = StringParser.parse(res, Integer[].class);
         } catch (StringParseError e) {
             showError("The API returned malformed data");
+
+            loadingBar.setVisible(false);
+            list1.setVisible(false);
 
             return;
         }
@@ -95,7 +101,7 @@ public class InadmittedPatients extends JFrame {
             }
         });
 
-        label.setText("Double click a patient to see their details");
+        hintTextArea.setText("Double click a patient to see their details");
 
         titleLabel.setText("Never Admitted Patients (" + patientCount + ")");
 
