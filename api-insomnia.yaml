@@ -1,0 +1,100 @@
+type: collection.insomnia.rest/5.0
+name: COMP2005 Report
+meta:
+  id: wrk_a964b599b88941248338f31c9b761570
+  created: 1742485722486
+  modified: 1742485722486
+collection:
+  - url: http://localhost:8080/patients/multi-staff
+    name: Patients with 2+ staff
+    meta:
+      id: req_41cf1bd8d1c547f1b3f3384cfd9b32ce
+      created: 1742485728522
+      modified: 1742486042927
+      isPrivate: false
+      sortKey: -1742485728522
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.0.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/admissions/re
+    name: Readmitted patients < 7 days
+    meta:
+      id: req_d49474a2c15c4874b51daa7b9eef94f7
+      created: 1742486064234
+      modified: 1742486102865
+      isPrivate: false
+      sortKey: -1739885780218
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.0.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/admissions/never
+    name: Patients never been admitted
+    meta:
+      id: req_e7a7266bc3b1435395fa865a6c0dd6bf
+      created: 1742486079346
+      modified: 1742486113054
+      isPrivate: false
+      sortKey: -1738585806066
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.0.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/admissions/most
+    name: Month with most admissions
+    meta:
+      id: req_2fa4d497ae9948c9bb631a2742af9731
+      created: 1742486085475
+      modified: 1742486126044
+      isPrivate: false
+      sortKey: -1737935818990
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.0.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_934138b2deea6ecf85aaa656e7a419ffbdb30b29
+    created: 1742485722489
+    modified: 1742485722489
+environments:
+  name: Base Environment
+  meta:
+    id: env_934138b2deea6ecf85aaa656e7a419ffbdb30b29
+    created: 1742485722488
+    modified: 1742485722488
+    isPrivate: false
