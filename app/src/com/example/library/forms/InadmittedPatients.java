@@ -14,7 +14,6 @@ public class InadmittedPatients extends JFrame {
     private JButton closeButton;
     private JProgressBar loadingBar;
     private JList list1;
-    private JTextArea hintTextArea;
 
     public InadmittedPatients() {
         setTitle("Never Admitted Patients");
@@ -26,7 +25,7 @@ public class InadmittedPatients extends JFrame {
         setResizable(false);
 
         closeButton.addActionListener((event) -> {
-            setVisible(false);
+            dispose();
         });
 
         setVisible(true);
@@ -35,8 +34,11 @@ public class InadmittedPatients extends JFrame {
     }
 
     private void showError(String message) {
-        hintTextArea.setForeground(Color.RED);
-        hintTextArea.setText(message);
+        SwingUtilities.invokeLater(() -> {
+            JOptionPane.showMessageDialog(contentPane, message, "Error", JOptionPane.ERROR_MESSAGE);
+
+            dispose();
+        });
     }
 
     private void getInadmittedPatients() {
@@ -45,10 +47,7 @@ public class InadmittedPatients extends JFrame {
         try {
             res = ApiService.get(ApiBase.LOCAL, "/admissions/never");
         } catch (ApiError e) {
-            showError("The API has failed, please try again by closing and reopending the application. If that does not work the API may be down, in that case contact support.");
-
-            loadingBar.setVisible(false);
-            list1.setVisible(false);
+            showError("Something went wrong with the local API service, are you sure it's running?");
 
             return;
         }
@@ -56,12 +55,12 @@ public class InadmittedPatients extends JFrame {
         Integer[] patientIds;
 
         try {
+            // res = { admissions: int[] }
+            // FIXME
+            //  fix me please, i havent changed it to work with the new local api format
             patientIds = StringParser.parse(res, Integer[].class);
         } catch (StringParseError e) {
-            showError("The API returned malformed data");
-
-            loadingBar.setVisible(false);
-            list1.setVisible(false);
+            showError("The local API returned malformed data, contact support at soso@yahoo.co.uk");
 
             return;
         }
@@ -100,8 +99,6 @@ public class InadmittedPatients extends JFrame {
                 }
             }
         });
-
-        hintTextArea.setText("Double click a patient to see their details");
 
         titleLabel.setText("Never Admitted Patients (" + patientCount + ")");
 
