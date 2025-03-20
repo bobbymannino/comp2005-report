@@ -31,10 +31,4 @@ public class APIHelper {
             throw new ApiError("Failed to reach the API");
         }
     }
-
-    public static ResponseEntity<ObjectNode> httpErrorResponse() {
-        HttpErrorResponse error = new HttpErrorResponse(500, "The API is not working at the moment, please try again later.");
-
-        return new ResponseEntity<>(error.toObjectNode(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 }

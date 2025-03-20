@@ -3,12 +3,11 @@ package com.example.comp2005_report;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.util.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.*;
 
 @RestController
 public class AdmissionService {
@@ -28,15 +27,18 @@ public class AdmissionService {
             // Get all admissions (as string)
             admissionsStr = APIHelper.get("/admissions");
         } catch (ApiError e) {
-            return APIHelper.httpErrorResponse();
+            return HttpErrorResponse.ApiErrorResponse();
         }
 
         AdmissionClass[] admissions;
         try {
             // Turn string into data i can work with
-            admissions = objectMapper.readValue(admissionsStr, AdmissionClass[].class);
+            admissions = objectMapper.readValue(
+                admissionsStr,
+                AdmissionClass[].class
+            );
         } catch (Exception e) {
-            throw new Error("Failed to parse AdmissionClass[]");
+            return HttpErrorResponse.ParseErrorResponse();
         }
 
         // An admission class looks like this:
@@ -46,7 +48,10 @@ public class AdmissionService {
         // and the value is an array of admissions
         HashMap<Integer, List<AdmissionClass>> patients = new HashMap<>();
         for (AdmissionClass admission : admissions) {
-            List<AdmissionClass> patientAdmissions = patients.getOrDefault(admission.patientID, new ArrayList<>());
+            List<AdmissionClass> patientAdmissions = patients.getOrDefault(
+                admission.patientID,
+                new ArrayList<>()
+            );
             patientAdmissions.add(admission);
             patients.put(admission.patientID, patientAdmissions);
         }
@@ -59,19 +64,23 @@ public class AdmissionService {
             // sidenote, it should be called "break" or "continue" not "return", annoys me
             if (patientAdmissions.size() == 1) return;
 
-//            I sometimes like to leave my prints in but just commented
-//            I may come back to it later on, and it saves me writing it again
-//            System.out.println("Patient #" + patientId + " has " + patientAdmissions.size() + " admissions");
+            //            I sometimes like to leave my prints in but just commented
+            //            I may come back to it later on, and it saves me writing it again
+            //            System.out.println("Patient #" + patientId + " has " + patientAdmissions.size() + " admissions");
 
             for (AdmissionClass a : patientAdmissions) {
                 // If the patient is already in the list then who cares about the
                 // rest of the admissions for them
-                if (patientIdsWhoHaveBeenReadmitted.contains(a.patientID)) break;
+                if (
+                    patientIdsWhoHaveBeenReadmitted.contains(a.patientID)
+                ) break;
 
                 for (AdmissionClass b : patientAdmissions) {
                     // If the patient is already in the list then who cares about the
                     // rest of the admissions for them
-                    if (patientIdsWhoHaveBeenReadmitted.contains(b.patientID)) break;
+                    if (
+                        patientIdsWhoHaveBeenReadmitted.contains(b.patientID)
+                    ) break;
 
                     // if the admission records are the same, discard
                     if (a.id.equals(b.id)) continue;
@@ -81,10 +90,15 @@ public class AdmissionService {
                     if (dischargeDate == null) continue;
                     Date admissionDate = a.getAdmissionDateParsed();
 
-                    double diff = Utils.differenceInDays(admissionDate, dischargeDate);
+                    double diff = Utils.differenceInDays(
+                        admissionDate,
+                        dischargeDate
+                    );
 
                     // difference must be more than discharge date but less (or =) then a week
-                    if (0.0 <= diff && diff <= 7.0) patientIdsWhoHaveBeenReadmitted.add(a.patientID);
+                    if (
+                        0.0 <= diff && diff <= 7.0
+                    ) patientIdsWhoHaveBeenReadmitted.add(a.patientID);
                 }
             }
         });
@@ -110,14 +124,17 @@ public class AdmissionService {
         try {
             admissionsStr = APIHelper.get("/admissions");
         } catch (ApiError e) {
-            return APIHelper.httpErrorResponse();
+            return HttpErrorResponse.ApiErrorResponse();
         }
 
         AdmissionClass[] admissions;
         try {
-            admissions = objectMapper.readValue(admissionsStr, AdmissionClass[].class);
+            admissions = objectMapper.readValue(
+                admissionsStr,
+                AdmissionClass[].class
+            );
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return HttpErrorResponse.ParseErrorResponse();
         }
 
         String patientsStr;
@@ -125,25 +142,36 @@ public class AdmissionService {
         try {
             patientsStr = APIHelper.get("/patients");
         } catch (ApiError e) {
-            return APIHelper.httpErrorResponse();
+            return HttpErrorResponse.ApiErrorResponse();
         }
 
         PatientClass[] patients;
         try {
-            patients = objectMapper.readValue(patientsStr, PatientClass[].class);
+            patients = objectMapper.readValue(
+                patientsStr,
+                PatientClass[].class
+            );
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return HttpErrorResponse.ParseErrorResponse();
         }
 
         // I laugh at this long variable name, but I think it's best to have clear names
-        Integer[] allPatients = Arrays.stream(patients).map(p -> p.id).toArray(Integer[]::new);
+        Integer[] allPatients = Arrays.stream(patients)
+            .map(p -> p.id)
+            .toArray(Integer[]::new);
 
         // Turn admissions into array of unique patient IDs, use distinct to reduce loop later on
-        Integer[] patientsThatHaveBeenAdmitted = Arrays.stream(admissions).map(a -> a.patientID).distinct().toArray(Integer[]::new);
+        Integer[] patientsThatHaveBeenAdmitted = Arrays.stream(admissions)
+            .map(a -> a.patientID)
+            .distinct()
+            .toArray(Integer[]::new);
 
-        Integer[] patientsThatHaveNotBeenAdmitted = Utils.difference(allPatients, patientsThatHaveBeenAdmitted);
+        Integer[] patientsThatHaveNotBeenAdmitted = Utils.difference(
+            allPatients,
+            patientsThatHaveBeenAdmitted
+        );
 
-        ArrayNode arr =  objectMapper.createArrayNode();
+        ArrayNode arr = objectMapper.createArrayNode();
         // Add patient ID to array
         for (Integer id : patientsThatHaveNotBeenAdmitted) {
             arr.add(id);
@@ -165,14 +193,17 @@ public class AdmissionService {
         try {
             admissionsStr = APIHelper.get("/admissions");
         } catch (ApiError e) {
-            return APIHelper.httpErrorResponse();
+            return HttpErrorResponse.ApiErrorResponse();
         }
 
         AdmissionClass[] admissions;
         try {
-            admissions = objectMapper.readValue(admissionsStr, AdmissionClass[].class);
+            admissions = objectMapper.readValue(
+                admissionsStr,
+                AdmissionClass[].class
+            );
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return HttpErrorResponse.ParseErrorResponse();
         }
 
         ObjectNode node = objectMapper.createObjectNode();
@@ -180,10 +211,9 @@ public class AdmissionService {
         int[] most = new int[12];
 
         for (AdmissionClass admission : admissions) {
-            int month =
-                DateFormatter.parseDate(
-                    admission.admissionDate
-                ).getMonth();
+            int month = DateFormatter.parseDate(
+                admission.admissionDate
+            ).getMonth();
             most[month]++;
         }
 

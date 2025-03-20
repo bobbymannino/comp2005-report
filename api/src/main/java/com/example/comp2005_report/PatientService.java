@@ -3,12 +3,11 @@ package com.example.comp2005_report;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.util.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.*;
 
 @RestController
 public class PatientService {
@@ -31,37 +30,47 @@ public class PatientService {
         try {
             allocationsStr = APIHelper.get("/allocations");
         } catch (ApiError e) {
-            return APIHelper.httpErrorResponse();
+            return HttpErrorResponse.ApiErrorResponse();
         }
-
 
         AllocationClass[] allocations;
         try {
-            allocations = objectMapper.readValue(allocationsStr, AllocationClass[].class);
+            allocations = objectMapper.readValue(
+                allocationsStr,
+                AllocationClass[].class
+            );
         } catch (Exception e) {
-            throw new Error("Failed to parse AllocationClass[] in /patients/multi-staff");
+            return HttpErrorResponse.ParseErrorResponse();
         }
 
         // for each allocation:
         for (AllocationClass allocation : allocations) {
-            // - get admission
             String admissionStr;
 
             try {
-                admissionStr = APIHelper.get("/admissions/" + allocation.admissionID);
+                // - get admission
+                admissionStr = APIHelper.get(
+                    "/admissions/" + allocation.admissionID
+                );
             } catch (ApiError e) {
-                return APIHelper.httpErrorResponse();
+                return HttpErrorResponse.ApiErrorResponse();
             }
 
             AdmissionClass admission;
             try {
-                admission = objectMapper.readValue(admissionStr, AdmissionClass.class);
+                admission = objectMapper.readValue(
+                    admissionStr,
+                    AdmissionClass.class
+                );
             } catch (Exception e) {
-                throw new Error("Failed to parse AdmissionClass in /patients/multi-staff");
+                return HttpErrorResponse.ParseErrorResponse();
             }
 
             // - add allocation.employeeId to hashmap using key admission.patientId
-            List<Integer> patientEmployees = patients.getOrDefault(admission.patientID, new ArrayList<>());
+            List<Integer> patientEmployees = patients.getOrDefault(
+                admission.patientID,
+                new ArrayList<>()
+            );
             if (!patientEmployees.contains(allocation.employeeID)) {
                 patientEmployees.add(allocation.employeeID);
             }
@@ -75,11 +84,15 @@ public class PatientService {
 
             // ensure employeeIds are unique per value in the hashmap
             for (Integer employeeID : employeeIDs) {
-                if (!uniqueList.contains(employeeID)) uniqueList.add(employeeID);
+                if (!uniqueList.contains(employeeID)) uniqueList.add(
+                    employeeID
+                );
             }
 
             // return a list of patientIds who have a value.length > 1
-            if (uniqueList.size() >= 2) patientsThatHaveHadManyStaff.add(patientId);
+            if (uniqueList.size() >= 2) patientsThatHaveHadManyStaff.add(
+                patientId
+            );
         });
 
         ArrayNode res = objectMapper.createArrayNode();
