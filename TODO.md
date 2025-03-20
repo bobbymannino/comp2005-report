@@ -8,6 +8,7 @@
 - [x] Implement app
   - [x] Never admitted patients
   - [x] Patient details
+  - [ ] Alert (popup) when error happens (api service down, parse error, etc)
 - [ ] Test API
     - [ ] Unit tests
     - [ ] Integration testing

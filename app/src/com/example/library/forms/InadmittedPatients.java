@@ -34,45 +34,72 @@ public class InadmittedPatients extends JFrame {
         getInadmittedPatients();
     }
 
+    private void showError(String message) {
+        label.setForeground(Color.RED);
+        label.setText(message);
+    }
+
     private void getInadmittedPatients() {
+        String res;
+
         try {
-            String res = ApiService.get(ApiBase.LOCAL, "/admissions/never");
-            Integer[] patientIds = StringParser.parse(res, Integer[].class);
+            res = ApiService.get(ApiBase.LOCAL, "/admissions/never");
+        } catch (ApiError e) {
+            showError("The API has failed, please try again by closing and reopending the application. If that does not work the API may be down, in that case contact support.");
 
-            titleLabel.setText("Never Admitted Patients (" + patientIds.length + ")");
+            return;
+        }
 
-            loadingBar.setVisible(false);
+        Integer[] patientIds;
 
-            DefaultListModel listModel = new DefaultListModel();
+        try {
+            patientIds = StringParser.parse(res, Integer[].class);
+        } catch (StringParseError e) {
+            showError("The API returned malformed data");
 
-            for (Integer patientId : patientIds) {
+            return;
+        }
+
+        DefaultListModel listModel = new DefaultListModel();
+
+        Integer patientCount = 0;
+
+        for (Integer patientId : patientIds) {
+            try {
                 res = ApiService.get(ApiBase.UNI, "/patients/" + patientId);
-                Patient patient = StringParser.parse(res, Patient.class);
-
-                listModel.addElement("#" + patient.id + " - " + patient.getFullName());
+            } catch (ApiError e) {
+                continue;
             }
 
-            list1.setModel(listModel);
+            Patient patient;
 
-            list1.addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent event) {
-                    if (event.getClickCount() == 2) {
-                        Integer index = list1.locationToIndex(event.getPoint());
-                        openPatientDetailsWindow(patientIds[index]);
-                    }
-                }
-            });
+            try {
+                patient = StringParser.parse(res, Patient.class);
+            } catch (StringParseError e) {
+                continue;
+            }
 
-            label.setText("Double click a patient to see their details");
-        } catch (ApiError e) {
-            // TODO handle error
+            listModel.addElement("#" + patient.id + " - " + patient.getFullName());
 
-            label.setForeground(Color.RED);
-            label.setText("The API has failed, please try again by closing and reopending the application. If that does not work the API may be down, in that case contact support.");
-        } catch (StringParseError e ) {
-            label.setForeground(Color.RED);
-            label.setText("The API returned malformed data");
+            patientCount++;
         }
+
+        list1.setModel(listModel);
+
+        list1.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent event) {
+                if (event.getClickCount() == 2) {
+                    Integer index = list1.locationToIndex(event.getPoint());
+                    openPatientDetailsWindow(patientIds[index]);
+                }
+            }
+        });
+
+        label.setText("Double click a patient to see their details");
+
+        titleLabel.setText("Never Admitted Patients (" + patientCount + ")");
+
+        loadingBar.setVisible(false);
     }
 
     private void openPatientDetailsWindow(Integer patientId) {
