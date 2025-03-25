@@ -34,4 +34,37 @@ class AdmissionServiceTest {
         assertNotNull(resContent);
         assertTrue(resContent.matches(reg));
     }
+
+    @Test
+    void testGetNeverAdmittedPatients() throws Exception {
+        // arrange
+        MockHttpServletRequestBuilder req = MockMvcRequestBuilders.get("/admissions/never").accept(MediaType.APPLICATION_JSON);
+        String reg = "^\\{\"admissions\":\\[\\d?(,\\d)*]}$";
+
+        // act
+        MvcResult res = mockMvc.perform(req).andReturn();
+        String resContent = res.getResponse().getContentAsString();
+
+        // assert
+        assertEquals(200, res.getResponse().getStatus());
+        assertNotNull(resContent);
+        assertTrue(resContent.matches(reg));
+    }
+
+    @Test
+    void testGetReAdmittedPatients7Days() throws Exception {
+        // arrange
+        MockHttpServletRequestBuilder req = MockMvcRequestBuilders.get("/admissions/re").accept(MediaType.APPLICATION_JSON);
+        String reg = "^\\{\"admissions\":\\[\\d?(,\\d)*]}$";
+
+        // act
+        MvcResult res = mockMvc.perform(req).andReturn();
+        String resContent = res.getResponse().getContentAsString();
+        System.out.println(resContent);
+
+        // assert
+        assertEquals(200, res.getResponse().getStatus());
+        assertNotNull(resContent);
+        assertTrue(resContent.matches(reg));
+    }
 }

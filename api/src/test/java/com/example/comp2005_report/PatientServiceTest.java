@@ -23,13 +23,11 @@ class PatientServiceTest {
     void testGetMultiStaffPatients() throws Exception {
         // arrange
         MockHttpServletRequestBuilder req = MockMvcRequestBuilders.get("/patients/multi-staff").accept(MediaType.APPLICATION_JSON);
-        String reg = "^\\{\"patients\":\\[\\d?,?(\\d,)*]}$";
+        String reg = "^\\{\"patients\":\\[\\d?(,\\d)*]}$";
 
         // act
         MvcResult res = mockMvc.perform(req).andReturn();
         String resContent = res.getResponse().getContentAsString();
-
-        System.out.println(resContent);
 
         // assert
         assertEquals(200, res.getResponse().getStatus());
