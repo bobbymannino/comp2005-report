@@ -15,10 +15,6 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - name: Find Email
-        run: |
-          echo "${{ github.actor }}@bob.com" >> $GITHUB_OUTPUT
-          exit 1
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -32,10 +28,13 @@ jobs:
         run: |
           cd api
           ./gradlew test
-      # - name: "Send Success Email"
-      #   run: |
-      #     curl -X POST https://plunk.bobman.dev/api/v1/send \
-      #       -H 'Content-Type: application/json' \
-      #       -H 'Authorization: Bearer ${{ secrets.PLUNK_API_KEY }}' \
-      #       -d '{"email": "${{ github.event.commits[0].author.email }}", "body": "API test passed", "subject":"Well Done!"}'
-      #     echo "Send email to ${github.event.commits[0].author.email}"
+      - name: "Send Success Email"
+        run: |
+          curl -X POST https://plunk.bobman.dev/api/v1/send \
+            -H 'Content-Type: application/json' \
+            -H 'Authorization: Bearer ${{ secrets.PLUNK_API_KEY }}' \
+            -d '{ \
+                "to": "${{ github.event.commits[0].author.email }}", \
+                "subject":"Well Done!" \
+                "body": "API test passed, committed by ${{ github.actor }}", \
+            }'

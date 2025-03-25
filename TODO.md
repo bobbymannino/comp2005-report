@@ -11,18 +11,20 @@
   - [ ] Unit tests
   - [ ] Integration testing
   - [ ] System tests
+  - [ ] Automate tests
 
 ## App
 
 - [x] Windows
   - [x] Main menu
-  - [ ] Never admitted patients
-  - [ ] Patient details
+  - [x] Never admitted patients
+  - [x] Patient details
 - [ ] Alert (popup) when error happens (api service down, parse error, etc)
 - [ ] Tests
   - [ ] Unit tests
   - [ ] Integration testing
   - [ ] System tests
+  - [ ] Automate tests
   - [ ] Usability tests
     - [ ] Make changes based on response
 
