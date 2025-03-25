@@ -36,5 +36,5 @@ jobs:
             -d '{ \
                 "to": "${{ github.event.commits[0].author.email }}", \
                 "subject":"Well Done!" \
-                "body": "API test passed, committed by ${{ github.actor }}", \
+                "body": "APP tests passed, committed by ${{ github.actor }}", \
             }'
