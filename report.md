@@ -1,10 +1,9 @@
 # 2005 Report
 
-Name: Bobby Mannino
-
 GitHub Repo: [https://github.com/bobbymannino/comp2005-report](https://github.com/bobbymannino/comp2005-report)
 
-YouTube Video: [youtube-video-here](https://youtu.be)
+<!-- TODO add youtube video -->
+YouTube Video: [http://youtu.be](https://youtu.be)
 
 ## Introduction
 
