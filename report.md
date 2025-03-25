@@ -3,6 +3,7 @@
 GitHub Repo: [https://github.com/bobbymannino/comp2005-report](https://github.com/bobbymannino/comp2005-report)
 
 <!-- TODO add youtube video -->
+
 YouTube Video: [http://youtu.be](https://youtu.be)
 
 ## Test Plan
@@ -58,7 +59,7 @@ void createAdmissionClass() {
 }
 ```
 
-These tests ensure that given the correct data in, you *should* get the expected
+These tests ensure that given the correct data in, you _should_ get the expected
 output. Throughout this document I will give examples, I have more tests then
 the examples.
 
@@ -116,8 +117,9 @@ for the type of data I return. I ended up deciding that no matter what is
 returned, error or success, it must conform to `ResponseEntity<ObjectNode>`.
 This made working with the API from the app 10x easier.
 
-What about when things go wrong? Well I looked to [Jakob Nielsen's 10 Usability
-Heuristics](https://www.nngroup.com/articles/ten-usability-heuristics) and #9
+What about when things go wrong? Well I looked to HCI's best practices and found
+[Jakob Nielsen's 10 Usability
+Heuristics](https://www.nngroup.com/articles/ten-usability-heuristics), #9
 talks about not error prevention but recognition and more importantly diagnosis.
 In order to help the user diagnose an error if something does go wrong, I have
 made sure that all errors return the correct code and a helpful message about
@@ -128,13 +130,13 @@ There was some manual endpoint testing which I executed using
 getting a status from an endpoint (e.g. 200, 500), but also seeing the response
 formatted. the yaml file is [here](./insomnia-endpoints.yml).
 
-code coverage
-edge/corner cases
-test api routes via file on desktop
+- edge/corner cases
+- test api routes via file on desktop (system testing)
 
 #### App Testing
 
-explain UAT
+- code coverage
+- UAT -> make changes
 
 #### Automation
 
@@ -152,37 +154,11 @@ the api routes are as follows:
 
 ### Evaluation
 
-why i have tested it the way i have
+- why i have tested it the way i have
 
 ---
 
-### API
-
-- [x] Endpoints
-  - [x] Never admitted patients
-  - [x] Readmitted patients within 7 days
-  - [x] Most admitted patients month
-  - [x] Patients who have had more then 1 staff
-- [ ] Tests
-  - [ ] Unit tests
-  - [ ] Integration testing
-  - [ ] System tests
-  - [ ] Automate tests
-
-### App
-
-- [x] Windows
-  - [x] Main menu
-  - [x] Never admitted patients
-  - [x] Patient details
-- [ ] Alert (popup) when error happens (api service down, parse error, etc)
-- [ ] Tests
-  - [ ] Unit tests
-  - [ ] Integration testing
-  - [ ] System tests
-  - [ ] Automate tests
-  - [ ] Usability tests
-    - [ ] Make changes based on response
+## TODO
 
 ### Demo
 
@@ -199,8 +175,6 @@ why i have tested it the way i have
   - [ ] Instructions on how to run tests/programs
   - [ ] Evaluation
 - [ ] YouTube video
-
----
 
 ## Notes
 
