@@ -1,5 +1,7 @@
 package com.example.comp2005_report;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.annotation.Testable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +16,15 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@WebMvcTest(Comp2005ReportApplication.class)
+@WebMvcTest(AdmissionService.class)
 class AdmissionServiceTest {
+    private final ObjectMapper mapper = new ObjectMapper();
+
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    void testGetNothing() throws Exception {
+    void testGetMostAdmissionsMonth() throws Exception {
         // arrange
         MockHttpServletRequestBuilder req = MockMvcRequestBuilders.get("/admissions/most").accept(MediaType.APPLICATION_JSON);
 
@@ -33,5 +37,11 @@ class AdmissionServiceTest {
 
         assertEquals(200, res.getResponse().getStatus());
         assertNotNull(res.getResponse().getContentAsString());
+
+        String reg = "^\\{\"busiestMonth\":\"\\w{3,}\",\"admissions\":\\d+}$";
+
+        System.out.println(reg);
+
+        assertTrue(res.getResponse().getContentAsString().matches(reg));
     }
 }

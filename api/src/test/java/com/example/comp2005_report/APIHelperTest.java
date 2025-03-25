@@ -18,15 +18,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Testable
 class APIHelperTest {
+    private final ObjectMapper mapper = new ObjectMapper();
+
     @Test
-    void testGetNothing() throws ApiError, JsonProcessingException {
+    void testGetNothing() throws Exception {
         // arrange
-        String res = APIHelper.get("/patients");
+        String res = APIHelper.get("/patients/1");
+
+        System.out.println(res);
 
         // act
-        PatientClass[] patients = new ObjectMapper().readValue(res, PatientClass[].class);
+        PatientClass patient = mapper.readValue(res, PatientClass.class);
 
         // assert
-        assertNotNull(patients);
+        assertNotNull(patient);
     }
 }
