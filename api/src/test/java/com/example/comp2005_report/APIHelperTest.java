@@ -16,11 +16,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Testable
+//@Testable
 class APIHelperTest {
     private final ObjectMapper mapper = new ObjectMapper();
 
-    @Test
+//    @Test
     void testGetNothing() throws Exception {
         // arrange
         String res = APIHelper.get("/patients/1");

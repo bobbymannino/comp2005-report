@@ -1,16 +1,12 @@
 package com.example.comp2005_report;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.annotation.Testable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.assertj.MockMvcTester;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -27,21 +23,15 @@ class AdmissionServiceTest {
     void testGetMostAdmissionsMonth() throws Exception {
         // arrange
         MockHttpServletRequestBuilder req = MockMvcRequestBuilders.get("/admissions/most").accept(MediaType.APPLICATION_JSON);
+        String reg = "^\\{\"busiestMonth\":\"\\w{3,}\",\"admissions\":\\d+}$";
 
         // act
         MvcResult res = mockMvc.perform(req).andReturn();
+        String resContent = res.getResponse().getContentAsString();
 
         // assert
-        System.out.println("Response Code: " +  res.getResponse().getStatus());
-        System.out.println("Response Content: " + res.getResponse().getContentAsString());
-
         assertEquals(200, res.getResponse().getStatus());
-        assertNotNull(res.getResponse().getContentAsString());
-
-        String reg = "^\\{\"busiestMonth\":\"\\w{3,}\",\"admissions\":\\d+}$";
-
-        System.out.println(reg);
-
-        assertTrue(res.getResponse().getContentAsString().matches(reg));
+        assertNotNull(resContent);
+        assertTrue(resContent.matches(reg));
     }
 }
