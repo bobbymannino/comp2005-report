@@ -1,4 +1,4 @@
-name: Test Java API
+name: Test Java App
 run-name: ${{ github.actor }}, lets hope this works!
 
 on:
@@ -22,9 +22,9 @@ jobs:
           java-version: "23"
       - name: "Gradle build"
         run: |
-          cd api
+          cd app
           ./gradlew build
       - name: "Gradle test"
         run: |
-          cd api
+          cd app
           ./gradlew test
