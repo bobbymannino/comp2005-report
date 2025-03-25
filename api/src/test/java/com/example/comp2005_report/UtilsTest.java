@@ -3,8 +3,7 @@ package com.example.comp2005_report;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.annotation.Testable;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,64 +24,34 @@ class UtilsTest {
 
     @Test
     void negativeDateDifference() {
-        Date date1 = new Date();
-        date1.setDate(22);
-        date1.setMonth(11);
-        date1.setYear(1979);
-        date1.setHours(0);
-        date1.setMinutes(0);
-        date1.setSeconds(0);
+        String date1Str = "1979-12-22T00:00:00";
+        String date2Str = "1979-12-24T00:00:00";
 
-        Date date2 = new Date();
-        date2.setDate(24);
-        date2.setMonth(11);
-        date2.setYear(1979);
-        date2.setHours(0);
-        date2.setMinutes(0);
-        date2.setSeconds(0);
+        Calendar cal1 = DateFormatter.parseDate(date1Str);
+        Calendar cal2 = DateFormatter.parseDate(date2Str);
 
-        assertEquals(-2.0, Utils.differenceInDays(date1, date2));
+        assertEquals(-2.0, Utils.differenceInDays(cal1, cal2));
     }
 
     @Test
     void bigDateDifference() {
-        Date date1 = new Date();
-        date1.setDate(22);
-        date1.setMonth(11);
-        date1.setYear(1979);
-        date1.setHours(0);
-        date1.setMinutes(0);
-        date1.setSeconds(0);
+        String date1Str = "1979-12-22T00:00:00";
+        String date2Str = "1978-12-23T00:00:00";
 
-        Date date2 = new Date();
-        date2.setDate(23);
-        date2.setMonth(11);
-        date2.setYear(1978);
-        date2.setHours(0);
-        date2.setMinutes(0);
-        date2.setSeconds(0);
+        Calendar cal1 = DateFormatter.parseDate(date1Str);
+        Calendar cal2 = DateFormatter.parseDate(date2Str);
 
-        assertEquals(364.0, Utils.differenceInDays(date1, date2));
+        assertEquals(364.0, Utils.differenceInDays(cal1, cal2));
     }
 
     @Test
     void smallDateDifference() {
-        Date date1 = new Date();
-        date1.setDate(22);
-        date1.setMonth(11);
-        date1.setYear(1979);
-        date1.setHours(0);
-        date1.setMinutes(0);
-        date1.setSeconds(0);
+        String date1Str = "1979-12-22T00:00:00";
+        String date2Str = "1979-12-20T00:00:00";
 
-        Date date2 = new Date();
-        date2.setDate(20);
-        date2.setMonth(11);
-        date2.setYear(1979);
-        date2.setHours(0);
-        date2.setMinutes(0);
-        date2.setSeconds(0);
+        Calendar cal1 = DateFormatter.parseDate(date1Str);
+        Calendar cal2 = DateFormatter.parseDate(date2Str);
 
-        assertEquals(2.0, Utils.differenceInDays(date1, date2));
+        assertEquals(2, Utils.differenceInDays(cal1, cal2));
     }
 }

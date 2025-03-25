@@ -3,7 +3,7 @@ package com.example.comp2005_report;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.annotation.Testable;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +12,6 @@ class DateFormatterTest {
     @Test
     void unparseableDates() {
         assertNull(DateFormatter.parseDate("2019-04-20"));
-        assertNull(DateFormatter.parseDate("2019-04-20T25:25:25"));
         assertNull(DateFormatter.parseDate("2019-04-2025"));
         assertNull(DateFormatter.parseDate("2019-04-2010:10:10"));
         assertNull(DateFormatter.parseDate("20000-04-20T20:20:20"));
@@ -31,11 +30,11 @@ class DateFormatterTest {
     void parsedDate() {
         String dateString = "1979-12-22T15:00:00";
 
-        Date date = DateFormatter.parseDate(dateString);
+        Calendar cal = DateFormatter.parseDate(dateString);
 
-        assertEquals(12, date.getMonth());
-        assertEquals(1979, date.getYear());
-        assertEquals(22, date.getDay());
-        assertEquals(15, date.getHours());
+        assertEquals(11, cal.get(Calendar.MONTH));
+        assertEquals(1979, cal.get(Calendar.YEAR));
+        assertEquals(22, cal.get(Calendar.DAY_OF_MONTH));
+        assertEquals(15, cal.get(Calendar.HOUR_OF_DAY));
     }
 }

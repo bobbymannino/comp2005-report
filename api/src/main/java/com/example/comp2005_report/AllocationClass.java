@@ -2,6 +2,7 @@ package com.example.comp2005_report;
 
 import org.springframework.lang.NonNull;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class AllocationClass {
@@ -12,9 +13,9 @@ public class AllocationClass {
     @NonNull
     public Integer employeeID;
     @NonNull
-    public Date startDate;
+    public Calendar startDate;
     @NonNull
-    public Date endDate;
+    public Calendar endDate;
 
     public AllocationClass(Integer id, Integer admissionID, Integer employeeID, String startDate, String endDate) {
         this.id = id;

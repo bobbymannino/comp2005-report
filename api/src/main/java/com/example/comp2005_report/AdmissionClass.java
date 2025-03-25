@@ -2,6 +2,7 @@ package com.example.comp2005_report;
 
 import org.springframework.lang.NonNull;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class AdmissionClass {
@@ -26,11 +27,11 @@ public class AdmissionClass {
     }
 
 
-    public Date getAdmissionDateParsed() {
+    public Calendar getAdmissionDateParsed() {
         return DateFormatter.parseDate(this.admissionDate);
     }
 
-    public Date getDischargeDateParsed() {
+    public Calendar getDischargeDateParsed() {
         return DateFormatter.parseDate(this.dischargeDate);
     }
 }

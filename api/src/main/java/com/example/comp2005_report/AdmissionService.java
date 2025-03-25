@@ -86,9 +86,9 @@ public class AdmissionService {
                     if (a.id.equals(b.id)) continue;
 
                     // if a.admission < b.discharge + 7 then add patient to list
-                    Date dischargeDate = b.getDischargeDateParsed();
+                    Calendar dischargeDate = b.getDischargeDateParsed();
                     if (dischargeDate == null) continue;
-                    Date admissionDate = a.getAdmissionDateParsed();
+                    Calendar admissionDate = a.getAdmissionDateParsed();
 
                     double diff = Utils.differenceInDays(
                         admissionDate,
@@ -211,9 +211,9 @@ public class AdmissionService {
         int[] most = new int[12];
 
         for (AdmissionClass admission : admissions) {
-            int month = DateFormatter.parseDate(
-                admission.admissionDate
-            ).getMonth();
+            Calendar cal = DateFormatter.parseDate(admission.admissionDate);
+            int month = cal.get(Calendar.MONTH);
+
             most[month]++;
         }
 

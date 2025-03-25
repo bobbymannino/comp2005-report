@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -45,8 +46,8 @@ public class Utils {
     /// This returns the difference in days from date1 compared to date2
     /// @example
     /// if date1 is 22nd December and date2 is December 20th, you will get 2.0
-    static double differenceInDays(@NonNull Date date1, @NonNull Date date2) {
-        long diff = date1.getTime() - date2.getTime();
+    static double differenceInDays(@NonNull Calendar date1, @NonNull Calendar date2) {
+        long diff = date1.getTime().getTime() - date2.getTime().getTime();
 
         return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
