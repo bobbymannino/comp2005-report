@@ -15,10 +15,10 @@ public class AdmissionClass {
     public Integer patientID;
 
     public AdmissionClass(
-            int id,
+            Integer id,
             String admissionDate,
             String dischargeDate,
-            int patientID
+            Integer patientID
     ) {
         this.id = id;
         this.admissionDate = admissionDate;
