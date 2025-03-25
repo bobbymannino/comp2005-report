@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 
 public class APIHelper {
 
-    private static String BASE =
+    private static final String BASE =
             "https://web.socem.plymouth.ac.uk/COMP2005/api";
 
     public static String get(String path) throws ApiError {
