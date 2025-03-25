@@ -1,11 +1,13 @@
 package com.example.comp2005_report;
 
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.annotation.Testable;
 
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Testable
 class DateFormatterTest {
     @Test
     void unparseableDates() {
