@@ -116,6 +116,9 @@ for the type of data I return. I ended up deciding that no matter what is
 returned, error or success, it must conform to `ResponseEntity<ObjectNode>`.
 This made working with the API from the app 10x easier.
 
+What about when things go wrong? Well I looked to Jakob Nielsen's 10 Usability
+Heuristics, #7
+
 Handling errors
 code coverage
 consistent responses
