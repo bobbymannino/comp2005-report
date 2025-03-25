@@ -28,3 +28,10 @@ jobs:
         run: |
           cd api
           ./gradlew test
+      - name: "Send Success Email"
+        run: |
+          curl -X POST https://plunk.bobman.dev/api/v1/send
+            -H 'Content-Type: application/json'
+            -H 'Authorization: Bearer ${{ secrets.PLUNK_API_KEY }}'
+            -d '{"email": "${{ github.event.commits[0].author.email }}", "body": "API test passed", "subject":"Well Done!"}'
+          echo "Send email to ${github.event.commits[0].author.email}"
