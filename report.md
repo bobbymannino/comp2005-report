@@ -123,11 +123,14 @@ In order to help the user diagnose an error if something does go wrong, I have
 made sure that all errors return the correct code and a helpful message about
 what the error was.
 
+There was some manual endpoint testing which I executed using
+[Insomnia](https://insomnia.rest/), this was helpful for quickly/repeatedly
+getting a status from an endpoint (e.g. 200, 500), but also seeing the response
+formatted. the yaml file is [here](./insomnia-endpoints.yml).
 
-Handling errors
 code coverage
-consistent responses
 edge/corner cases
+test api routes via file on desktop
 
 #### App Testing
 
