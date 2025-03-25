@@ -22,25 +22,57 @@ and an application that interacts with my API. Along with this I need to test
 
 ### Units Tests
 
-### Integration Tests
+---
 
-### Functional Tests
+### API
 
-### Usability Tests
+- [x] Endpoints
+  - [x] Never admitted patients
+  - [x] Readmitted patients within 7 days
+  - [x] Most admitted patients month
+  - [x] Patients who have had more then 1 staff
+- [ ] Tests
+  - [ ] Unit tests
+  - [ ] Integration testing
+  - [ ] System tests
+  - [ ] Automate tests
 
-## Evaluation
+### App
+
+- [x] Windows
+  - [x] Main menu
+  - [x] Never admitted patients
+  - [x] Patient details
+- [ ] Alert (popup) when error happens (api service down, parse error, etc)
+- [ ] Tests
+  - [ ] Unit tests
+  - [ ] Integration testing
+  - [ ] System tests
+  - [ ] Automate tests
+  - [ ] Usability tests
+    - [ ] Make changes based on response
+
+### Demo
+
+- [ ] API
+- [ ] App
+- [ ] Tests
+
+### Docs
+
+- [ ] Write report
+  - [ ] Intro
+  - [ ] Test plan
+  - [ ] Table of test types and examples
+  - [ ] Instructions on how to run tests/programs
+  - [ ] Evaluation
+- [ ] YouTube video
 
 ---
 
-_DELETE NOTES BEFORE SUBMITTING_
-
 ## Notes
 
-- Me and sir spoke about weather to return objects or patient ids from each
-  endpoint, we decided that being consistent matters more, so as long as im
-  consistent, it doesn't matter
 - use [JISC](https://onlinesurverys.ac.uk) for questionnaires
-- use AAA, assert, act, arrange
 - mention static testing (linters) and dynamic (unit, etc...)
 - box testing (black, gray, white)
 - code coverage
@@ -53,10 +85,10 @@ _DELETE NOTES BEFORE SUBMITTING_
 
 ### Cognitive walkthrough
 
-1) is the user on the right track
-2) is step visible (next action)
-3) is it labeled well
-4) feedback
+1. is the user on the right track
+2. is step visible (next action)
+3. is it labeled well
+4. feedback
 
 ### Test Plan
 
