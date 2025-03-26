@@ -52,7 +52,8 @@ public class PatientDetails extends JFrame {
             surnameLabel.setText("Surname: " + patient.lastName);
             nhsNumberLabel.setText("NHS Number: " + patient.nhsNumber);
         } catch (ApiError | StringParseError e) {
-            // TODO handle error properly
+            MessageDialog.showError("The local API returned malformed data, contact support at soso@yahoo.co.uk", contentPane);
+            MessageDialog.showError("Something went wrong with the local API service, are you sure it's running?", contentPane);
         }
     }
 }

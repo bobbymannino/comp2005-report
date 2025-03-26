@@ -33,22 +33,14 @@ public class InadmittedPatients extends JFrame {
         getInadmittedPatients();
     }
 
-    private void showError(String message) {
-        SwingUtilities.invokeLater(() -> {
-            JOptionPane.showMessageDialog(contentPane, message, "Error", JOptionPane.ERROR_MESSAGE);
-
-            dispose();
-        });
-    }
-
     private void getInadmittedPatients() {
         String res;
 
         try {
             res = ApiService.get(ApiBase.LOCAL, "/admissions/never");
         } catch (ApiError e) {
-            showError("Something went wrong with the local API service, are you sure it's running?");
-
+            MessageDialog.showError("Something went wrong with the local API service, are you sure it's running?", contentPane);
+            dispose();
             return;
         }
 
@@ -58,8 +50,8 @@ public class InadmittedPatients extends JFrame {
             // res = { admissions: int[] }
             patientIds = StringParser.parse(res, "admissions", Integer[].class);
         } catch (StringParseError e) {
-            showError("The local API returned malformed data, contact support at soso@yahoo.co.uk");
-
+            MessageDialog.showError("The local API returned malformed data, contact support at soso@yahoo.co.uk", contentPane);
+            dispose();
             return;
         }
 
