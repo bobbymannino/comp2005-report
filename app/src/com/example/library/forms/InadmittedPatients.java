@@ -56,9 +56,7 @@ public class InadmittedPatients extends JFrame {
 
         try {
             // res = { admissions: int[] }
-            // FIXME
-            //  fix me please, i havent changed it to work with the new local api format
-            patientIds = StringParser.parse(res, Integer[].class);
+            patientIds = StringParser.parse(res, "admissions", Integer[].class);
         } catch (StringParseError e) {
             showError("The local API returned malformed data, contact support at soso@yahoo.co.uk");
 
