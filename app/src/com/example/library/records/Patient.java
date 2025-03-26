@@ -8,6 +8,8 @@ public class Patient {
     public String firstName;
     public String nhsNumber;
 
+    private final static String PATIENT_NAME_NO_NAME = "UNKNOWN";
+
     public Patient(
             @JsonProperty("id")
         Integer id,
@@ -19,9 +21,13 @@ public class Patient {
         String nhsNumber
     ) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.nhsNumber = nhsNumber;
+
+        if (firstName == null || firstName.isBlank())  this.firstName = PATIENT_NAME_NO_NAME;
+        else this.firstName = firstName;
+
+        if (lastName == null || lastName.isBlank())  this.lastName = PATIENT_NAME_NO_NAME;
+        else this.lastName = lastName;
     }
 
     public String getFullName() {
