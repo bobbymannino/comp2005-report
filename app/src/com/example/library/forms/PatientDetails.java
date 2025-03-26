@@ -36,13 +36,8 @@ public class PatientDetails extends JFrame {
     }
 
     private void loadPatient() {
-        System.out.println("Loading patient " + patientId);
         try {
-            System.out.println("1");
-            String res = ApiService.get(ApiBase.UNI, "/patients/" + patientId);
-            System.out.println("2");
-            Patient patient = StringParser.parse(res, Patient.class);
-            System.out.println("3");
+            Patient patient = PatientService.getPatient(patientId);
 
             setTitle(patient.getFullName());
             titleLabel.setText(patient.getFullName());
@@ -51,9 +46,10 @@ public class PatientDetails extends JFrame {
             forenameLabel.setText("Forename: " + patient.firstName);
             surnameLabel.setText("Surname: " + patient.lastName);
             nhsNumberLabel.setText("NHS Number: " + patient.nhsNumber);
-        } catch (ApiError | StringParseError e) {
-            MessageDialog.showError("The local API returned malformed data, contact support at soso@yahoo.co.uk", contentPane);
-            MessageDialog.showError("Something went wrong with the local API service, are you sure it's running?", contentPane);
+        } catch (ApiError e) {
+            MessageDialog.showError("It seems that the UoP API is down, please contact the uni.", contentPane);
+        } catch (StringParseError e) {
+            MessageDialog.showError("Failed to parse patient string, please try again.", contentPane);
         }
     }
 }
