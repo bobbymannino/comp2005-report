@@ -117,6 +117,16 @@ for the type of data I return. I ended up deciding that no matter what is
 returned, error or success, it must conform to `ResponseEntity<ObjectNode>`.
 This made working with the API from the app 10x easier.
 
+```json
+{
+	"status": 500,
+	"message": "The data returned from the API is malformed, please try again later."
+}
+```
+
+Any errors that occur that will all return an object with the status and a
+message to help the user understand the error.
+
 What about when things go wrong? Well I looked to HCI's best practices and found
 [Jakob Nielsen's 10 Usability
 Heuristics](https://www.nngroup.com/articles/ten-usability-heuristics), #9
