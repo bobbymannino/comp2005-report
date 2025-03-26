@@ -166,10 +166,35 @@ HTTP server, this saves me time and the computer resources. They all conform to
 AAA as well as using regex to check the response body is as it should be. Regex
 allows me to be super precise with what to expect.
 
-- edge/corner cases
-- test api routes via file on desktop (system testing) AdmissionServiceTest
+Throughout testing I remembered to think about edge and corner cases, so after I
+had made some progress I extract the logic for determining wether a patient has
+been readmitted within 7 days into its own function so I could test it. This
+allowed me to created edge cases where the exact second was 7 days on the nose.
+I could then make sure it behaved the way I would like, in this case allowing
+that as true.
+
+```java
+@Test
+void testEdgeCaseWithin7Days() {
+    // arrange
+    AdmissionClass admission1 = new AdmissionClass(1, "1979-12-22T15:00:00", "1979-12-22T15:00:00", 1);
+    AdmissionClass admission2 = new AdmissionClass(2, "1979-12-29T15:00:00", null, 1);
+
+    List<AdmissionClass> admissions = new ArrayList<>();
+    admissions.add(admission1);
+    admissions.add(admission2);
+
+    // act
+    boolean isReadmittedWithin7Days = AdmissionUtils.isPatientReadmittedWithin7Days(admissions);
+
+    // assert
+    assertTrue(isReadmittedWithin7Days);
+}
+```
 
 #### App Testing
+
+**I AM HERE**
 
 - code coverage
 - UAT -> make changes
