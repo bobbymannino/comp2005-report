@@ -2,17 +2,13 @@ package com.example.comp2005_report;
 
 import org.springframework.lang.NonNull;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 public class Utils {
+    private static final Integer msInDay = 86_400_00;
+
     static Integer[] removeDuplicates(Integer[] array) {
         Set<Integer> set = new HashSet<>();
 
@@ -45,10 +41,10 @@ public class Utils {
 
     /// This returns the difference in days from date1 compared to date2
     /// @example
-    /// if date1 is 22nd December and date2 is December 20th, you will get 2.0
+    /// if date1 is 22nd December and date2 is December 20th, you will get 2.0, it does count ms so you will get a float
     static double differenceInDays(@NonNull Calendar date1, @NonNull Calendar date2) {
         long diff = date1.getTime().getTime() - date2.getTime().getTime();
 
-        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        return diff / msInDay;
     }
 }

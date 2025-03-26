@@ -171,7 +171,8 @@ had made some progress I extract the logic for determining wether a patient has
 been readmitted within 7 days into its own function so I could test it. This
 allowed me to created edge cases where the exact second was 7 days on the nose.
 I could then make sure it behaved the way I would like, in this case allowing
-that as true.
+that as true. Other edge cases I tested include: in by one second, out by one
+second.
 
 ```java
 @Test
