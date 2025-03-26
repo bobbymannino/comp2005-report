@@ -60,17 +60,11 @@ public class InadmittedPatients extends JFrame {
         Integer patientCount = 0;
 
         for (Integer patientId : patientIds) {
-            try {
-                res = ApiService.get(ApiBase.UNI, "/patients/" + patientId);
-            } catch (ApiError e) {
-                continue;
-            }
-
             Patient patient;
 
             try {
-                patient = StringParser.parse(res, Patient.class);
-            } catch (StringParseError e) {
+                patient = PatientService.getPatient(patientId);
+            } catch (ApiError | StringParseError e) {
                 continue;
             }
 
