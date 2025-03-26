@@ -56,62 +56,18 @@ public class AdmissionService {
             patients.put(admission.patientID, patientAdmissions);
         }
 
-        List<Integer> patientIdsWhoHaveBeenReadmitted = new ArrayList<>();
+        ArrayNode patientIdsWhoHaveBeenReadmitted = objectMapper.createArrayNode();
 
         // 2. go through each patient's admissions and check if the diff is < 7 days
         patients.forEach((patientId, patientAdmissions) -> {
-            // If there is only one admission on a patient, they have not been readmitted
-            // sidenote, it should be called "break" or "continue" not "return", annoys me
-            if (patientAdmissions.size() == 1) return;
+            boolean isPatientReadmitted = AdmissionUtils.isPatientReadmittedWithin7Days(patientAdmissions);
 
-            //            I sometimes like to leave my prints in but just commented
-            //            I may come back to it later on, and it saves me writing it again
-            //            System.out.println("Patient #" + patientId + " has " + patientAdmissions.size() + " admissions");
-
-            for (AdmissionClass a : patientAdmissions) {
-                // If the patient is already in the list then who cares about the
-                // rest of the admissions for them
-                if (
-                    patientIdsWhoHaveBeenReadmitted.contains(a.patientID)
-                ) break;
-
-                for (AdmissionClass b : patientAdmissions) {
-                    // If the patient is already in the list then who cares about the
-                    // rest of the admissions for them
-                    if (
-                        patientIdsWhoHaveBeenReadmitted.contains(b.patientID)
-                    ) break;
-
-                    // if the admission records are the same, discard
-                    if (a.id.equals(b.id)) continue;
-
-                    // if a.admission < b.discharge + 7 then add patient to list
-                    Calendar dischargeDate = b.getDischargeDateParsed();
-                    if (dischargeDate == null) continue;
-                    Calendar admissionDate = a.getAdmissionDateParsed();
-
-                    double diff = Utils.differenceInDays(
-                        admissionDate,
-                        dischargeDate
-                    );
-
-                    // difference must be more than discharge date but less (or =) then a week
-                    if (
-                        0.0 <= diff && diff <= 7.0
-                    ) patientIdsWhoHaveBeenReadmitted.add(a.patientID);
-                }
-            }
+            if (isPatientReadmitted) patientIdsWhoHaveBeenReadmitted.add(patientId);
         });
-
-        ArrayNode arr = objectMapper.createArrayNode();
-
-        for (Integer i : patientIdsWhoHaveBeenReadmitted) {
-            arr.add(i);
-        }
 
         ObjectNode res = objectMapper.createObjectNode();
 
-        res.set("admissions", arr);
+        res.set("admissions", patientIdsWhoHaveBeenReadmitted);
 
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
