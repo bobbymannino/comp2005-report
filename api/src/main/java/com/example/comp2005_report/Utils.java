@@ -1,13 +1,13 @@
 package com.example.comp2005_report;
 
-import org.springframework.lang.NonNull;
-
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
+import org.springframework.lang.NonNull;
 
 public class Utils {
-    private static final Integer msInDay = 86_400_00;
+
+    private static final double msInDay = 86_400_000.0;
 
     static Integer[] removeDuplicates(Integer[] array) {
         Set<Integer> set = new HashSet<>();
@@ -42,9 +42,13 @@ public class Utils {
     /// This returns the difference in days from date1 compared to date2
     /// @example
     /// if date1 is 22nd December and date2 is December 20th, you will get 2.0, it does count ms so you will get a float
-    static double differenceInDays(@NonNull Calendar date1, @NonNull Calendar date2) {
-        long diff = date1.getTime().getTime() - date2.getTime().getTime();
+    static double differenceInDays(
+        @NonNull Calendar date1,
+        @NonNull Calendar date2
+    ) {
+        long diffInMs = date1.getTime().getTime() - date2.getTime().getTime();
+        double diffInDays = diffInMs / msInDay;
 
-        return diff / msInDay;
+        return diffInDays;
     }
 }
