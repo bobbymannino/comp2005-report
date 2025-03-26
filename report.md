@@ -192,6 +192,10 @@ void testEdgeCaseWithin7Days() {
 }
 ```
 
+Refactoring the code for this logic actually ended up saving me how much code
+was executed and simplified the logic by a lot. I like it when my code is easily
+understandable.
+
 #### App Testing
 
 **I AM HERE**
