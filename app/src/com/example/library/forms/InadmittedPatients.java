@@ -51,6 +51,7 @@ public class InadmittedPatients extends JFrame {
         DefaultListModel listModel = new DefaultListModel();
 
         Integer patientCount = 0;
+        Integer badPatientCount = 0;
 
         for (Integer patientId : patientIds) {
             Patient patient;
@@ -58,6 +59,9 @@ public class InadmittedPatients extends JFrame {
             try {
                 patient = PatientService.getPatient(patientId);
             } catch (ApiError | StringParseError e) {
+                // if the patient id exists but cannot get it from the UoP api,
+                // skip it as if it doesnt exist
+                badPatientCount++;
                 continue;
             }
 
@@ -78,6 +82,10 @@ public class InadmittedPatients extends JFrame {
         });
 
         titleLabel.setText("Never Admitted Patients (" + patientCount + ")");
+
+        // If patient IDs exist but something went wrong fetching a patients details,
+        // show the user how many users we couldn't get details for
+        if (badPatientCount > 0) MessageDialog.showWarning("There are " + badPatientCount + " patient(s) that we could not fetch.", contentPane);
 
         loadingBar.setVisible(false);
     }
