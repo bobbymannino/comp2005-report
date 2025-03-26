@@ -207,10 +207,21 @@ The API endpoints if you would like to test there are here:
 
 #### App Testing
 
-**I AM HERE**
+---
 
-- code coverage
-- UAT -> make changes
+**APP TO DO LIST**
+
+- [ ] (write) fallback patient name (hci)
+- [ ] (code, write) get a loading state in there, how does the user know its loading?
+- [ ] (do, write) make UAT questionnaire thing
+- [ ] (do, write) perform UAT test
+- [ ] (code, write) make changes based on UAT results
+- [ ] (do and write) code coverage
+- [ ] (code, write) rite about unit tests
+- [ ] (code, write) rite about integration tests
+- [ ] (code, write) rite about system tests
+
+---
 
 #### Automation
 
