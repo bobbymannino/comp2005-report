@@ -29,10 +29,14 @@ public class InadmittedPatients extends JFrame {
 
         setVisible(true);
 
-        getInadmittedPatients();
+        loadNeverAdmittedPatients();
     }
 
-    private void getInadmittedPatients() {
+    /// This function will return null if something goes wrong, otherwise it will
+    /// return patient IDs. If there are 0 IDs it will also show a message and
+    /// dispose the window. If something does go wrong, an error message will
+    /// appear and the window will be disposed off.
+    private Integer[] getPatientIds() {
         Integer[] patientIds;
 
         try {
@@ -42,13 +46,13 @@ public class InadmittedPatients extends JFrame {
 
             dispose();
 
-            return;
+            return null;
         } catch (StringParseError e) {
             MessageDialog.showError("The local API returned malformed data, contact support at soso@yahoo.co.uk", contentPane);
 
             dispose();
 
-            return;
+            return null;
         }
 
         // if there are no patient IDs then tell the user and close
@@ -57,8 +61,15 @@ public class InadmittedPatients extends JFrame {
 
             dispose();
 
-            return;
+            return null;
         }
+
+        return patientIds;
+    }
+
+    private void loadNeverAdmittedPatients() {
+        Integer[] patientIds = getPatientIds();
+        if (patientIds != null) return;
 
         DefaultListModel listModel = new DefaultListModel();
 
