@@ -198,6 +198,13 @@ was executed and simplified the logic by a lot. I like it when my code is easily
 understandable. Whilst refactoring I did come across some edge cases where it
 would round the difference up, so it was a good job I tested it!
 
+The API endpoints if you would like to test there are here:
+
+- [Patients with multiple staff](http://localhost:8080/patients/multi-staff)
+- [Readmitted patients within 7 days of release](http://localhost:8080/admissions/re)
+- [Patients who have never been admitted](http://localhost:8080/admissions/never)
+- [Month with the most admissions](http://localhost:8080/admissions/most)
+
 #### App Testing
 
 **I AM HERE**
@@ -207,17 +214,57 @@ would round the difference up, so it was a good job I tested it!
 
 #### Automation
 
-I have enabled automatic testing via GitHub actions. This way they can be
-tested within the same environment (Java v23, ubuntu).
+I have enabled automatic testing via GitHub actions. This way they can be tested
+without me having to manually go in and test it. I also set it up to send an
+email to whoever pushed the last commit if the tests passed. Here is the yaml
+file for testing the API:
 
-### Running
+```yml
+name: Test Java API
+run-name: ${{ github.actor }}, lets hope this works!
 
-the api routes are as follows:
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
-- [Patients with multiple staff](http://localhost:8080/patients/multi-staff)
-- [Readmitted patients within 7 days of release](http://localhost:8080/admissions/re)
-- [Patients who have never been admitted](http://localhost:8080/admissions/never)
-- [Month with the most admissions](http://localhost:8080/admissions/most)
+jobs:
+  test-api:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "23"
+      - name: "Gradle build"
+        run: |
+          cd api
+          ./gradlew build
+      - name: "Gradle test"
+        run: |
+          cd api
+          ./gradlew test
+      - name: "Send Success Email"
+        run: |
+          curl -X POST https://plunk.bobman.dev/api/v1/send \
+            -H 'Content-Type: application/json' \
+            -H 'Authorization: Bearer ${{ secrets.PLUNK_API_KEY }}' \
+            -d '{ \
+                "to": "${{ github.event.commits[0].author.email }}", \
+                "subject":"Well Done!" \
+                "body": "API test passed, committed by ${{ github.actor }}", \
+            }'
+```
+
+And here is a screenshot of the pipeline succeeding on GitHub:
+
+![Test API GitHub action working](./screenshots/gh-action-working.png)
 
 ### Evaluation
 
