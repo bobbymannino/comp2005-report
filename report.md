@@ -140,6 +140,32 @@ There was some manual endpoint testing which I executed using
 getting a status from an endpoint (e.g. 200, 500), but also seeing the response
 formatted. the yaml file is [here](./insomnia-endpoints.yml).
 
+I have added some more suitable system testing to each endpoint via `MockMvc`.
+They all look something similar to this:
+
+```java
+@Test
+void testGetMostAdmissionsMonth() throws Exception {
+    // arrange
+    MockHttpServletRequestBuilder req = MockMvcRequestBuilders.get("/admissions/most").accept(MediaType.APPLICATION_JSON);
+    String reg = "^\\{\"busiestMonth\":\"\\w{3,}\",\"admissions\":\\d+}$";
+
+    // act
+    MvcResult res = mockMvc.perform(req).andReturn();
+    String resContent = res.getResponse().getContentAsString();
+
+    // assert
+    assertEquals(200, res.getResponse().getStatus());
+    assertNotNull(resContent);
+    assertTrue(resContent.matches(reg));
+}
+```
+
+Using `MockMvc` allows me to test each endpoint without having to start up the
+HTTP server, this saves me time and the computer resources. They all conform to
+AAA as well as using regex to check the response body is as it should be. Regex
+allows me to be super precise with what to expect.
+
 - edge/corner cases
 - test api routes via file on desktop (system testing) AdmissionServiceTest
 
