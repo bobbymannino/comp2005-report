@@ -4,7 +4,6 @@ import com.example.library.records.Patient;
 import com.example.library.utils.*;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,7 +12,7 @@ public class InadmittedPatients extends JFrame {
     private JLabel titleLabel;
     private JButton closeButton;
     private JProgressBar loadingBar;
-    private JList list1;
+    private JList patientJList;
 
     public InadmittedPatients() {
         setTitle("Never Admitted Patients");
@@ -40,18 +39,31 @@ public class InadmittedPatients extends JFrame {
             patientIds = AdmissionService.getInadmittedPatients();
         } catch (ApiError e) {
             MessageDialog.showError("Something went wrong with the local API service, are you sure it's running?", contentPane);
+
             dispose();
+
             return;
         } catch (StringParseError e) {
             MessageDialog.showError("The local API returned malformed data, contact support at soso@yahoo.co.uk", contentPane);
+
             dispose();
+
+            return;
+        }
+
+        // if there are no patient IDs then tell the user and close
+        if (patientIds.length == 0) {
+            MessageDialog.showInfo("There are no patients who have not been admitted.", contentPane);
+
+            dispose();
+
             return;
         }
 
         DefaultListModel listModel = new DefaultListModel();
 
-        Integer patientCount = 0;
-        Integer badPatientCount = 0;
+        int patientCount = 0;
+        int badPatientCount = 0;
 
         for (Integer patientId : patientIds) {
             Patient patient;
@@ -60,8 +72,9 @@ public class InadmittedPatients extends JFrame {
                 patient = PatientService.getPatient(patientId);
             } catch (ApiError | StringParseError e) {
                 // if the patient id exists but cannot get it from the UoP api,
-                // skip it as if it doesnt exist
+                // skip it as if it doesn't exist, but make a note of the failure
                 badPatientCount++;
+
                 continue;
             }
 
@@ -70,18 +83,27 @@ public class InadmittedPatients extends JFrame {
             patientCount++;
         }
 
-        list1.setModel(listModel);
+        patientJList.setModel(listModel);
 
-        list1.addMouseListener(new MouseAdapter() {
+        patientJList.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent event) {
                 if (event.getClickCount() == 2) {
-                    Integer index = list1.locationToIndex(event.getPoint());
+                    int index = patientJList.locationToIndex(event.getPoint());
                     openPatientDetailsWindow(patientIds[index]);
                 }
             }
         });
 
         titleLabel.setText("Never Admitted Patients (" + patientCount + ")");
+
+        // if patient count is 0, this means
+        if (patientCount == 0) {
+            MessageDialog.showError("There are patient IDs but we cannot get any details about them, please contact support bob@blahblah.com", contentPane);
+
+            dispose();
+
+            return;
+        }
 
         // If patient IDs exist but something went wrong fetching a patients details,
         // show the user how many users we couldn't get details for
