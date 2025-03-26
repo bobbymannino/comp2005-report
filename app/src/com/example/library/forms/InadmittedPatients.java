@@ -34,21 +34,14 @@ public class InadmittedPatients extends JFrame {
     }
 
     private void getInadmittedPatients() {
-        String res;
+        Integer[] patientIds;
 
         try {
-            res = ApiService.get(ApiBase.LOCAL, "/admissions/never");
+            patientIds = AdmissionService.getInadmittedPatients();
         } catch (ApiError e) {
             MessageDialog.showError("Something went wrong with the local API service, are you sure it's running?", contentPane);
             dispose();
             return;
-        }
-
-        Integer[] patientIds;
-
-        try {
-            // res = { admissions: int[] }
-            patientIds = StringParser.parse(res, "admissions", Integer[].class);
         } catch (StringParseError e) {
             MessageDialog.showError("The local API returned malformed data, contact support at soso@yahoo.co.uk", contentPane);
             dispose();
