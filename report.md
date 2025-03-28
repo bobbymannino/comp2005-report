@@ -119,8 +119,8 @@ This made working with the API from the app 10x easier.
 
 ```json
 {
-	"status": 500,
-	"message": "The data returned from the API is malformed, please try again later."
+  "status": 500,
+  "message": "The data returned from the API is malformed, please try again later."
 }
 ```
 
@@ -207,23 +207,49 @@ The API endpoints if you would like to test there are here:
 
 #### App Testing
 
----
+I followed a similar thought process with the app as to the API which was a
+test driven development approach. The app is quite simple. I was asked for it
+to interact with one endpoint from my API and I chose the never admitted
+patients route. The app contains 3 screens: main menu, never admitted
+patients, and patient details (which interacts with the uni API).
+
+The HCI principles is something that I have make sure to incoorperate and make
+decisions based off, for instance when creating a `Patient` if there is no
+`firstName` or `lastName` passed in (or blank strings) I will assign `UNKNOWN`
+as that name, this way the user will see that they don't have a name. I would
+put this under #10 which is help and documentation as it helps the user
+understand this user does not have a name set.
+
+I have a utility class `StringParser` which helps me take in a string and parse it into a class. I tested this on its own but also with a `Patient` string, this way I can test the name fallback and parser at once. I did a few tests so here's an example:
+
+```java
+@Test
+void testParsePatientStringWithFirstName() throws StringParseError {
+    String raw = "{\"id\":1,\"nhsNumber\":\"1\",\"firstName\":\"bob\"}";
+
+    Patient patient = StringParser.parse(raw, Patient.class);
+
+    assertEquals(1, patient.id);
+    assertEquals("bob", patient.firstName);
+    assertEquals("UNKNOWN", patient.lastName);
+    assertEquals("bob UNKNOWN", patient.getFullName());
+    assertEquals("1", patient.nhsNumber);
+}
+```
 
 **APP TO DO LIST**
 
-- [ ] (write) fallback patient name (hci)
-- [ ] (code, write) get a loading state in there, how does the user know its loading?
+- [ ] (code, write) get a loading state in there, how does the user know its loading? (hci #1)
+- [ ] (write) error messages
+- [ ] (do and write) code coverage
+- [ ] (code, write) write about unit tests
+- [ ] (code, write) write about integration tests
+- [ ] (code, write) write about system tests
 - [ ] (do, write) make UAT questionnaire thing
 - [ ] (do, write) perform UAT test
 - [ ] (code, write) make changes based on UAT results
-- [ ] (do and write) code coverage
-- [ ] (code, write) rite about unit tests
-- [ ] (code, write) rite about integration tests
-- [ ] (code, write) rite about system tests
 
----
-
-#### Automation
+#### Automated Testing
 
 I have enabled automatic testing via GitHub actions. This way they can be tested
 without me having to manually go in and test it. I also set it up to send an
