@@ -13,7 +13,6 @@ public class InadmittedPatients extends JFrame {
     private JPanel contentPane;
     private JLabel titleLabel;
     private JButton closeButton;
-    private JProgressBar loadingBar;
     private JList patientJList;
 
     private static final boolean SHOW_PATIENT_ID_IN_LIST = true;
@@ -31,8 +30,8 @@ public class InadmittedPatients extends JFrame {
             dispose();
         });
 
-        setVisible(true);
-
+        // there is no `setVisible(true)` because that is taken care of in the
+        // function, this is so if there is an error the window
         loadNeverAdmittedPatients();
     }
 
@@ -170,7 +169,8 @@ public class InadmittedPatients extends JFrame {
         });
 
         titleLabel.setText("Never Admitted Patients (" + patientRowTexts.size() + ")");
+        setTitle("Never Admitted Patients (" + patientRowTexts.size() + ")");
 
-        loadingBar.setVisible(false);
+        setVisible(true);
     }
 }
