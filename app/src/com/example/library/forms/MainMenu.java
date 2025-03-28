@@ -1,11 +1,20 @@
 package com.example.library.forms;
 
+import com.example.library.utils.MessageDialog;
+
 import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class MainMenu extends JFrame {
     private JPanel contentPane;
     private JButton patientsWhoHaveNotButton;
     private JButton closeButton;
+    private JButton openGitHubRepoButton;
+
+    private final String GITHUB_REPO_LINK = "https://github.com/bobbymannino/comp2005-report";
 
     public MainMenu() {
         setTitle("COMP2005 Java App");
@@ -21,7 +30,15 @@ public class MainMenu extends JFrame {
         });
 
         closeButton.addActionListener((event) -> {
-            dispose();
+            System.exit(0);
+        });
+
+        openGitHubRepoButton.addActionListener((event) -> {
+            try {
+                Desktop.getDesktop().browse(new URI(GITHUB_REPO_LINK));
+            } catch (Exception e) {
+                MessageDialog.showError("Failed to open link, if you want to manually open it the link is: " + GITHUB_REPO_LINK, contentPane);
+            }
         });
 
         setVisible(true);
