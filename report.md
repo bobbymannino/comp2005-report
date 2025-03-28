@@ -239,7 +239,7 @@ void testParsePatientStringWithFirstName() throws StringParseError {
 
 What happens when something goes wrong? Well because it is a GUI we can show
 the user visual elements to help them which complies with the 10 usability
-heuristics' #9, help users recognize and recover from errors.
+heuristics' (10UH) 9th principle: help users recognize and recover from errors.
 
 ```java
 public static void showError(String message, JPanel contentPane) {
@@ -251,9 +251,11 @@ public static void showError(String message, JPanel contentPane) {
 
 I created 3 severities of there: warning, error, and info. And when invoked I would populate the message with something that would tell the user what has gone wrong (e.g. "cannot connect to the uni API") and then something they could do to help fix the error or how to contact support (e.g. "contact blah@icloud.com for assistance").
 
+A small thing I added across all screens was a close button at the bottom of
+the page. This follows the 10UHs 4th rule: consistency and standards. By having a close button on every page and in the same spot (which happens to be where most close/cancel buttons are in software) really helps with keeping the user comfortable and familiar with the UI.
+
 **APP TO DO LIST**
 
-- [ ] close button - hci #6 recognition over recall
 - [ ] (code, write) get a loading state in there, how does the user know its loading? (hci #1)
 - [ ] (do and write) code coverage
 - [ ] (code, write) write about unit tests
