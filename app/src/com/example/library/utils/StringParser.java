@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class StringParser {
     private static final ObjectMapper mapper = new ObjectMapper();
 
+    /// Parse a string into a class
     public static <T> T parse(String str, Class<T> klass) throws StringParseError {
         try {
             return mapper.readValue(str, klass);
