@@ -237,10 +237,24 @@ void testParsePatientStringWithFirstName() throws StringParseError {
 }
 ```
 
+What happens when something goes wrong? Well because it is a GUI we can show
+the user visual elements to help them which complies with the 10 usability
+heuristics' #9, help users recognize and recover from errors.
+
+```java
+public static void showError(String message, JPanel contentPane) {
+    SwingUtilities.invokeLater(() -> {
+        JOptionPane.showMessageDialog(contentPane, message, "Error!", JOptionPane.ERROR_MESSAGE);
+    });
+}
+```
+
+I created 3 severities of there: warning, error, and info. And when invoked I would populate the message with something that would tell the user what has gone wrong (e.g. "cannot connect to the uni API") and then something they could do to help fix the error or how to contact support (e.g. "contact blah@icloud.com for assistance").
+
 **APP TO DO LIST**
 
+- [ ] close button - hci #6 recognition over recall
 - [ ] (code, write) get a loading state in there, how does the user know its loading? (hci #1)
-- [ ] (write) error messages
 - [ ] (do and write) code coverage
 - [ ] (code, write) write about unit tests
 - [ ] (code, write) write about integration tests
@@ -309,7 +323,9 @@ And here is a screenshot of the pipeline succeeding on GitHub:
 
 ---
 
-## TODO
+**DELETE FROM HERE**
+
+# TODO
 
 ### Demo
 
