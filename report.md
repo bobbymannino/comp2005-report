@@ -254,13 +254,19 @@ I created 3 severities of there: warning, error, and info. And when invoked I wo
 A small thing I added across all screens was a close button at the bottom of
 the page. This follows the 10UHs 4th rule: consistency and standards. By having a close button on every page and in the same spot (which happens to be where most close/cancel buttons are in software) really helps with keeping the user comfortable and familiar with the UI.
 
+Following Jakobs 1st principle we have show the user system status, keep them
+aware of whats going on. So after the user clicks the button to open the window
+there will be a loading state appear. This is useful because it shows the user
+that something is happening which makes them more comfortable with waiting. It's not a fabulous or pretty UI but it is functional enough that the user is aware they are waiting while something is happening.
+
 **APP TO DO LIST**
 
-- [ ] (code, write) get a loading state in there, how does the user know its loading? (hci #1)
 - [ ] (do and write) code coverage
+
 - [ ] (code, write) write about unit tests
 - [ ] (code, write) write about integration tests
 - [ ] (code, write) write about system tests
+
 - [ ] (do, write) make UAT questionnaire thing
 - [ ] (do, write) perform UAT test
 - [ ] (code, write) make changes based on UAT results
@@ -329,7 +335,7 @@ And here is a screenshot of the pipeline succeeding on GitHub:
 
 # TODO
 
-### Demo
+### Demo YT Video
 
 - [ ] API
 - [ ] App

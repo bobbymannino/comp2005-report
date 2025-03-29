@@ -5,8 +5,7 @@ import com.example.library.utils.*;
 import javax.swing.*;
 
 public class PatientDetails extends JFrame {
-
-    private Integer patientId;
+    private final Integer patientId;
     private JPanel contentPane;
     private JLabel titleLabel;
     private JButton closeButton;
@@ -32,7 +31,7 @@ public class PatientDetails extends JFrame {
 
         setVisible(true);
 
-        loadPatient();
+        SwingUtilities.invokeLater(this::loadPatient);
     }
 
     private void loadPatient() {

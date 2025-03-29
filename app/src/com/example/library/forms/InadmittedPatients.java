@@ -2,14 +2,16 @@ package com.example.library.forms;
 
 import com.example.library.records.Patient;
 import com.example.library.utils.*;
-
-import javax.swing.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.*;
 
 public class InadmittedPatients extends JFrame {
+
     private JPanel contentPane;
     private JLabel titleLabel;
     private JButton closeButton;
@@ -18,7 +20,6 @@ public class InadmittedPatients extends JFrame {
     private static final boolean SHOW_PATIENT_ID_IN_LIST = true;
 
     public InadmittedPatients() {
-        setTitle("Never Admitted Patients");
         setContentPane(contentPane);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
@@ -26,13 +27,20 @@ public class InadmittedPatients extends JFrame {
         setSize(500, 500);
         setResizable(false);
 
-        closeButton.addActionListener((event) -> {
+        closeButton.addActionListener(event -> {
             dispose();
         });
 
-        // there is no `setVisible(true)` because that is taken care of in the
-        // function, this is so if there is an error the window
-        loadNeverAdmittedPatients();
+        setLoading();
+
+        setVisible(true);
+
+        SwingUtilities.invokeLater(this::loadNeverAdmittedPatients);
+    }
+
+    private void setLoading() {
+        setTitle("Loading...");
+        titleLabel.setText("Loading...");
     }
 
     /// This function will return null if something goes wrong, otherwise it will
@@ -47,13 +55,19 @@ public class InadmittedPatients extends JFrame {
         try {
             patientIds = AdmissionService.getInadmittedPatients();
         } catch (ApiError e) {
-            MessageDialog.showError("Something went wrong with the local API service, are you sure it's running?", contentPane);
+            MessageDialog.showError(
+                "Something went wrong with the local API service, are you sure it's running?",
+                contentPane
+            );
 
             dispose();
 
             return null;
         } catch (StringParseError e) {
-            MessageDialog.showError("The local API returned malformed data, contact support at soso@yahoo.co.uk", contentPane);
+            MessageDialog.showError(
+                "The local API returned malformed data, contact support at soso@yahoo.co.uk",
+                contentPane
+            );
 
             dispose();
 
@@ -62,7 +76,10 @@ public class InadmittedPatients extends JFrame {
 
         // if there are no patient IDs then tell the user and close
         if (patientIds.length == 0) {
-            MessageDialog.showInfo("There are no patients who have not been admitted.", contentPane);
+            MessageDialog.showInfo(
+                "There are no patients who have not been admitted.",
+                contentPane
+            );
 
             dispose();
 
@@ -81,7 +98,10 @@ public class InadmittedPatients extends JFrame {
     /// @return `List<Patient>` where length > 0 or `null`
     private List<Patient> getPatientsOrNull(Integer[] patientIds) {
         if (patientIds.length == 0) {
-            MessageDialog.showInfo("There are no patients who have not been admitted.", contentPane);
+            MessageDialog.showInfo(
+                "There are no patients who have not been admitted.",
+                contentPane
+            );
 
             dispose();
 
@@ -97,7 +117,10 @@ public class InadmittedPatients extends JFrame {
 
         // if failed to get every patients details, alert the user and dispose the window
         if (patients.isEmpty()) {
-            MessageDialog.showError("There are patient IDs but we cannot get any details about them, please contact support bob@uop.ac.uk", contentPane);
+            MessageDialog.showError(
+                "There are patient IDs but we cannot get any details about them, please contact support bob@uop.ac.uk",
+                contentPane
+            );
 
             dispose();
 
@@ -110,7 +133,12 @@ public class InadmittedPatients extends JFrame {
         // If patient IDs exist but something went wrong fetching a patients details,
         // show the user how many users we couldn't get details for, this means we have
         // at least 1 patients details
-        if (failedPatientCount > 0) MessageDialog.showWarning("There are " + failedPatientCount + " patient(s) that we could not fetch.", contentPane);
+        if (failedPatientCount > 0) MessageDialog.showWarning(
+            "There are " +
+            failedPatientCount +
+            " patient(s) that we could not fetch.",
+            contentPane
+        );
 
         return patients;
     }
@@ -125,7 +153,8 @@ public class InadmittedPatients extends JFrame {
         for (Patient patient : patients) {
             String patientRowTextsStr = patient.getFullName();
 
-            if (SHOW_PATIENT_ID_IN_LIST) patientRowTextsStr += " (ID: " + patient.id + ")";
+            if (SHOW_PATIENT_ID_IN_LIST) patientRowTextsStr +=
+                " (ID: " + patient.id + ")";
 
             patientRowTexts.add(patientRowTextsStr);
         }
@@ -152,25 +181,31 @@ public class InadmittedPatients extends JFrame {
         patientJList.setModel(listModel);
 
         // on double click, open patient details
-        patientJList.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent event) {
-                // only on double click
-                if (event.getClickCount() == 2) {
-                    // get index of list item that was double-clicked
-                    int index = patientJList.locationToIndex(event.getPoint());
+        patientJList.addMouseListener(
+            new MouseAdapter() {
+                public void mouseClicked(MouseEvent event) {
+                    // only on double click
+                    if (event.getClickCount() == 2) {
+                        // get index of list item that was double-clicked
+                        int index = patientJList.locationToIndex(
+                            event.getPoint()
+                        );
 
-                    // if click out of bounds do nothing
-                    if (index == -1) return;
+                        // if click out of bounds do nothing
+                        if (index == -1) return;
 
-                    // open a window with their details
-                    new PatientDetails(patients.get(index).id);
+                        // open a window with their details
+                        new PatientDetails(patients.get(index).id);
+                    }
                 }
             }
-        });
+        );
 
-        titleLabel.setText("Never Admitted Patients (" + patientRowTexts.size() + ")");
+        titleLabel.setText(
+            "Never Admitted Patients (" + patientRowTexts.size() + ")"
+        );
+        titleLabel.setIcon(null);
+
         setTitle("Never Admitted Patients (" + patientRowTexts.size() + ")");
-
-        setVisible(true);
     }
 }
