@@ -8,6 +8,7 @@ class Comp2005ReportApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

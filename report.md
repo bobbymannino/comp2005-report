@@ -33,8 +33,8 @@ the app and make changes accordingly.
 ### Test Approach
 
 For both the API and app, I have created unit tests, integration tests and
-system tests. For the app I have also tested the user acceptance. I will do this
-via a [JISC](https://www.jisc.ac.uk/) survey.
+system tests. For the app I have also tested the user acceptance. I will do
+this via a [JISC](https://www.jisc.ac.uk/) survey (more info later on).
 
 #### API Testing
 
@@ -205,6 +205,11 @@ The API endpoints if you would like to test there are here:
 - [Patients who have never been admitted](http://localhost:8080/admissions/never)
 - [Month with the most admissions](http://localhost:8080/admissions/most)
 
+A statistic that matters in test code coverage. This is the percent of your code that has been put through a test, this could be measured by line, unit, classes, files, and more.
+
+> [!NOTE]
+> I AM HERE /\
+
 #### App Testing
 
 I followed a similar thought process with the app as to the API which was a
@@ -259,24 +264,11 @@ aware of whats going on. So after the user clicks the button to open the window
 there will be a loading state appear. This is useful because it shows the user
 that something is happening which makes them more comfortable with waiting. It's not a fabulous or pretty UI but it is functional enough that the user is aware they are waiting while something is happening.
 
-**APP TO DO LIST**
-
-- [ ] (do and write) code coverage
-
-- [ ] (code, write) write about unit tests
-- [ ] (code, write) write about integration tests
-- [ ] (code, write) write about system tests
-
-- [ ] (do, write) make UAT questionnaire thing
-- [ ] (do, write) perform UAT test
-- [ ] (code, write) make changes based on UAT results
-
 #### Automated Testing
 
-I have enabled automatic testing via GitHub actions. This way they can be tested
-without me having to manually go in and test it. I also set it up to send an
-email to whoever pushed the last commit if the tests passed. Here is the yaml
-file for testing the API:
+I have enabled automatic testing via GitHub actions. This way they can be
+tested without me having to manually go in and test it. Here is the yaml file
+for testing the API:
 
 ```yml
 name: Test Java API
@@ -309,16 +301,6 @@ jobs:
         run: |
           cd api
           ./gradlew test
-      - name: "Send Success Email"
-        run: |
-          curl -X POST https://plunk.bobman.dev/api/v1/send \
-            -H 'Content-Type: application/json' \
-            -H 'Authorization: Bearer ${{ secrets.PLUNK_API_KEY }}' \
-            -d '{ \
-                "to": "${{ github.event.commits[0].author.email }}", \
-                "subject":"Well Done!" \
-                "body": "API test passed, committed by ${{ github.actor }}", \
-            }'
 ```
 
 And here is a screenshot of the pipeline succeeding on GitHub:
@@ -328,58 +310,3 @@ And here is a screenshot of the pipeline succeeding on GitHub:
 ### Evaluation
 
 - why i have tested it the way i have
-
----
-
-**DELETE FROM HERE**
-
-# TODO
-
-### Demo YT Video
-
-- [ ] API
-- [ ] App
-- [ ] Tests
-
-### Docs
-
-- [ ] Write report
-  - [ ] Intro
-  - [ ] Test plan
-  - [ ] Table of test types and examples
-  - [ ] Instructions on how to run tests/programs
-  - [ ] Evaluation
-- [ ] YouTube video
-
-## Notes
-
-- use [JISC](https://onlinesurverys.ac.uk) for questionnaires
-- mention static testing (linters) and dynamic (unit, etc...)
-- box testing (black, gray, white)
-- code coverage
-- edge/corner cases
-- unit -> integration -> system -> usability
-  - system testing: make sure its as close to real use case as possible
-    (environment)
-- mention about the port, what if it is in use?
-- handle error if service is down, what to show user?
-
-### Cognitive walkthrough
-
-1. is the user on the right track
-2. is step visible (next action)
-3. is it labeled well
-4. feedback
-
-### Test Plan
-
-- objective of test
-- scope of test, what is to be included/not
-- how long should the test last (in seconds/minutes)
-- what type of test is it
-- manual/automatic (github actions)
-- environment? is it mac, windows, browser, chrome, webkit?
-- assumptions
-- notes
-- measure speed?
-  - if stress testing, how much slower does it get?

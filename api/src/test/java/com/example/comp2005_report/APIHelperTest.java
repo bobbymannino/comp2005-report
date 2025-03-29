@@ -24,7 +24,6 @@ class APIHelperTest {
     void testGetNothing() throws Exception {
         // arrange
         String res = APIHelper.get("/patients/1");
-
         System.out.println(res);
 
         // act
