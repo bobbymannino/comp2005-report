@@ -212,8 +212,8 @@ public class AdmissionService {
         }
     )
     @GetMapping("/admissions/most")
-    public ResponseEntity<ObjectNode> index() {
-        AdmissionClass[] admissions = new AdmissionClass[0];
+    public ResponseEntity<ObjectNode> busiestMonthForAdmissions() {
+        AdmissionClass[] admissions;
 
         try {
            admissions = AdmissionUtils.getAdmissions();
@@ -240,6 +240,8 @@ public class AdmissionService {
 
         for (AdmissionClass admission : admissions) {
             Calendar cal = DateFormatter.parseDate(admission.admissionDate);
+            if (cal == null) continue;
+
             int month = cal.get(Calendar.MONTH);
 
             most[month]++;
