@@ -33,4 +33,12 @@ public class AdmissionUtils {
 
         return false;
     }
+
+    public static AdmissionClass[] getAdmissions() throws ApiError, ParseError{
+        String admissionsStr = APIHelper.get("/admissions");
+
+        AdmissionClass[] admissions = Parser.parse(admissionsStr, AdmissionClass[].class);
+
+        return admissions;
+    }
 }

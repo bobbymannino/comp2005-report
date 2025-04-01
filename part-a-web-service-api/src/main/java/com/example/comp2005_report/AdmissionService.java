@@ -213,25 +213,28 @@ public class AdmissionService {
     )
     @GetMapping("/admissions/most")
     public ResponseEntity<ObjectNode> index() {
-        String admissionsStr;
+        AdmissionClass[] admissions = new AdmissionClass[0];
 
         try {
-            admissionsStr = APIHelper.get("/admissions");
+           admissions = AdmissionUtils.getAdmissions();
         } catch (ApiError e) {
             return HttpErrorResponse.ApiErrorResponse();
-        }
-
-        AdmissionClass[] admissions;
-        try {
-            admissions = objectMapper.readValue(
-                admissionsStr,
-                AdmissionClass[].class
-            );
-        } catch (Exception e) {
+        } catch (ParseError e) {
             return HttpErrorResponse.ParseErrorResponse();
         }
 
-        ObjectNode node = objectMapper.createObjectNode();
+        ObjectNode out = objectMapper.createObjectNode();
+
+        if (admissions.length == 0) {
+            out.set("admissions", null);
+            out.set("busiestMonth", null);
+            out.put(
+                "message",
+                "There were no admissions so no month was the busiest"
+            );
+
+            return new ResponseEntity<>(out, HttpStatus.OK);
+        }
 
         int[] most = new int[12];
 
@@ -267,9 +270,9 @@ public class AdmissionService {
             }
         }
 
-        node.put("busiestMonth", months[maxIndex]);
-        node.put("admissions", max);
+        out.put("busiestMonth", months[maxIndex]);
+        out.put("admissions", max);
 
-        return new ResponseEntity<>(node, HttpStatus.OK);
+        return new ResponseEntity<>(out, HttpStatus.OK);
     }
 }
