@@ -157,21 +157,16 @@ public class PatientService {
     public ResponseEntity<ObjectNode> getReadmittedAdmissions(
         @PathVariable("id") Integer id
     ) {
-        String patientStr;
+        PatientClass patient;
 
         try {
-            patientStr = APIHelper.get("/patients/" + id);
+            patient = PatientUtils.getPatient(id);
+        } catch (ParseError e) {
+            return HttpErrorResponse.ParseErrorResponse();
         } catch (ApiError e) {
             return HttpErrorResponse.ApiErrorResponse();
         }
 
-        PatientClass patient;
-
-        try {
-            patient = objectMapper.readValue(patientStr, PatientClass.class);
-        } catch (Exception e) {
-            return HttpErrorResponse.ParseErrorResponse();
-        }
 
         ObjectNode out = objectMapper.createObjectNode();
 
