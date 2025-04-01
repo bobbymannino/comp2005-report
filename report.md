@@ -198,12 +198,11 @@ was executed and simplified the logic by a lot. I like it when my code is easily
 understandable. Whilst refactoring I did come across some edge cases where it
 would round the difference up, so it was a good job I tested it!
 
-The API endpoints if you would like to test there are here:
+In case somebody new wanted to understand or even work on the API I have added
+an OpenAPI generator plugin to my project. This way somebody can understand
+the endpoints quickly which will save time and money in the long run.
 
-- [Patients with multiple staff](http://localhost:8080/patients/multi-staff)
-- [Readmitted patients within 7 days of release](http://localhost:8080/admissions/re)
-- [Patients who have never been admitted](http://localhost:8080/admissions/never)
-- [Month with the most admissions](http://localhost:8080/admissions/most)
+![Swagger web GUI](./screenshots/swagger.png)
 
 A statistic that matters in test code coverage. This is the percent of your code that has been put through a test, this could be measured by line, unit, classes, files, and more.
 
