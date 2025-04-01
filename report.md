@@ -1,6 +1,6 @@
 # 2005 Report
 
-GitHub Repo: [https://github.com/bobbymannino/comp2005-report](https://github.com/bobbymannino/comp2005-report)
+GitHub Repo: [https://github.com/Plymouth-University/comp2005-assessment2-bobbymannino](https://github.com/Plymouth-University/comp2005-assessment2-bobbymannino)
 
 <!-- TODO add youtube video -->
 
@@ -200,7 +200,7 @@ would round the difference up, so it was a good job I tested it!
 
 In case somebody new wanted to understand or even work on the API I have added
 an OpenAPI generator plugin to my project. This way somebody can understand
-the endpoints quickly which will save time and money in the long run.
+the endpoints quickly which will save time and money in the long run. Here is a screenshot of one of the endpoints:
 
 ![Swagger web GUI](./screenshots/swagger.png)
 
@@ -302,9 +302,9 @@ jobs:
           ./gradlew test
 ```
 
-And here is a screenshot of the pipeline succeeding on GitHub:
+And here is a screenshot of the pipeline succeeding:
 
-![Test API GitHub action working](./screenshots/gh-action-working.png)
+![GitHub action for API](./screenshots/gh-action-working.png)
 
 ### Evaluation
 
