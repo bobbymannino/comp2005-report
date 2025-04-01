@@ -14,7 +14,7 @@ public class PatientClass {
     @JsonProperty("forename")
     public String forename;
     @NonNull
-    @JsonProperty("nshNumber")
+    @JsonProperty("nhsNumber")
     public String nhsNumber;
 
     public PatientClass(Integer id, String surname, String forename, String nhsNumber) {

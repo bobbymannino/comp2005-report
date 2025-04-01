@@ -11,6 +11,7 @@ import java.util.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -130,5 +131,55 @@ public class PatientService {
         result.set("patients", res);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @Operation(
+        summary = "Patient details",
+        description = "Retrieve a patients details"
+    )
+    @ApiResponses(
+        {
+            @ApiResponse(
+                responseCode = "200",
+                description = "Ok - Patient returned"
+            ),
+            @ApiResponse(
+                responseCode = "500",
+                description = "Parse error - Failed to parse string into a class"
+            ),
+            @ApiResponse(
+                responseCode = "503",
+                description = "API error - Failed to reach the UoP API"
+            ),
+        }
+    )
+    @GetMapping("/patients/{id}")
+    public ResponseEntity<ObjectNode> getReadmittedAdmissions(
+        @PathVariable("id") Integer id
+    ) {
+        String patientStr;
+
+        try {
+            patientStr = APIHelper.get("/patients/" + id);
+        } catch (ApiError e) {
+            return HttpErrorResponse.ApiErrorResponse();
+        }
+
+        PatientClass patient;
+
+        try {
+            patient = objectMapper.readValue(patientStr, PatientClass.class);
+        } catch (Exception e) {
+            return HttpErrorResponse.ParseErrorResponse();
+        }
+
+        ObjectNode out = objectMapper.createObjectNode();
+
+        out.put("id", patient.id);
+        out.put("firstName", patient.forename);
+        out.put("lastName", patient.surname);
+        out.put("nshNumber", patient.nhsNumber);
+
+        return new ResponseEntity<>(out, HttpStatus.OK);
     }
 }
