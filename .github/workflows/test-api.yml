@@ -22,19 +22,9 @@ jobs:
           java-version: "23"
       - name: "Gradle build"
         run: |
-          cd api
+          cd part-a-web-service-api
           ./gradlew build
       - name: "Gradle test"
         run: |
-          cd api
+          cd part-a-web-service-api
           ./gradlew test
-      # - name: "Send Success Email"
-      #   run: |
-      #     curl -X POST https://plunk.bobman.dev/api/v1/send \
-      #       -H 'Content-Type: application/json' \
-      #       -H 'Authorization: Bearer ${{ secrets.PLUNK_API_KEY }}' \
-      #       -d '{ \
-      #           "to": "${{ github.event.commits[0].author.email }}", \
-      #           "subject":"Well Done!" \
-      #           "body": "API test passed, committed by ${{ github.actor }}", \
-      #       }'
