@@ -18,6 +18,18 @@ the source code for both the [API](./part-a-web-service-api) and the [App](./par
 
 ![Swagger GUI](./screenshots/swagger.png)
 
+### Successful Response
+
+![Successful response](./screenshots/successful-response.png)
+
+### Parse Error Response
+
+![Parse error response](./screenshots/parse-error-response.png)
+
+### Uni API Error Response
+
+![Uni API error response](./screenshots/uni-api-error-response.png)
+
 ### API GitHub Action
 
 ![API GitHub action](./screenshots/api-gh-action.png)
