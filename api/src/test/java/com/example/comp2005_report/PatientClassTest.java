@@ -12,7 +12,7 @@ class PatientClassTest {
     @Test
     void testCreatePatient() {
         PatientClass patient = new PatientClass(1, "Joe", "Bob", "1");
-        
+
         assertEquals(1, patient.id);
         assertEquals("Bob", patient.forename);
         assertEquals("Joe", patient.surname);

@@ -3,6 +3,9 @@ package com.example.comp2005_report;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.util.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,26 @@ public class AdmissionService {
     }
 
     /// These are patients that have been re-admitted within 7 days of being discharged
+    @Operation(
+        summary = "Re-admitted Patients < 7 days",
+        description = "Patients that were discharged and admitted within 7 days of being discharged"
+    )
+    @ApiResponses(
+        {
+            @ApiResponse(
+                responseCode = "200",
+                description = "Ok - Patients returned"
+            ),
+            @ApiResponse(
+                responseCode = "500",
+                description = "Parse error - Failed to parse string into a class"
+            ),
+            @ApiResponse(
+                responseCode = "503",
+                description = "API error - Failed to reach the UoP API"
+            ),
+        }
+    )
     @GetMapping("/admissions/re")
     public ResponseEntity<ObjectNode> getReadmittedAdmissions() {
         String admissionsStr;
@@ -56,13 +79,19 @@ public class AdmissionService {
             patients.put(admission.patientID, patientAdmissions);
         }
 
-        ArrayNode patientIdsWhoHaveBeenReadmitted = objectMapper.createArrayNode();
+        ArrayNode patientIdsWhoHaveBeenReadmitted =
+            objectMapper.createArrayNode();
 
         // 2. go through each patient's admissions and check if the diff is < 7 days
         patients.forEach((patientId, patientAdmissions) -> {
-            boolean isPatientReadmitted = AdmissionUtils.isPatientReadmittedWithin7Days(patientAdmissions);
+            boolean isPatientReadmitted =
+                AdmissionUtils.isPatientReadmittedWithin7Days(
+                    patientAdmissions
+                );
 
-            if (isPatientReadmitted) patientIdsWhoHaveBeenReadmitted.add(patientId);
+            if (isPatientReadmitted) patientIdsWhoHaveBeenReadmitted.add(
+                patientId
+            );
         });
 
         ObjectNode res = objectMapper.createObjectNode();
@@ -73,6 +102,26 @@ public class AdmissionService {
     }
 
     /// These are patients who have never been admitted
+    @Operation(
+        summary = "Never admitted patients",
+        description = "Patients that have never been admitted"
+    )
+    @ApiResponses(
+        {
+            @ApiResponse(
+                responseCode = "200",
+                description = "Ok - Patients returned"
+            ),
+            @ApiResponse(
+                responseCode = "500",
+                description = "Parse error - Failed to parse string into a class"
+            ),
+            @ApiResponse(
+                responseCode = "503",
+                description = "API error - Failed to reach the UoP API"
+            ),
+        }
+    )
     @GetMapping("/admissions/never")
     public ResponseEntity<ObjectNode> getNeverBeenAdmitted() {
         String admissionsStr;
@@ -141,7 +190,27 @@ public class AdmissionService {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    // The month with the most admissions
+    /// The month with the most admissions
+    @Operation(
+        summary = "The month with the most admissions",
+        description = "The month with the most admissions"
+    )
+    @ApiResponses(
+        {
+            @ApiResponse(
+                responseCode = "200",
+                description = "Ok - Patients returned"
+            ),
+            @ApiResponse(
+                responseCode = "500",
+                description = "Parse error - Failed to parse string into a class"
+            ),
+            @ApiResponse(
+                responseCode = "503",
+                description = "API error - Failed to reach the UoP API"
+            ),
+        }
+    )
     @GetMapping("/admissions/most")
     public ResponseEntity<ObjectNode> index() {
         String admissionsStr;

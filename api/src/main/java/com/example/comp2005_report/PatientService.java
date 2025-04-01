@@ -4,6 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.*;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +23,26 @@ public class PatientService {
     }
 
     /// A list of patients who have had > 1 member of staff
+    @Operation(
+        summary = "Patients who had 2+ members of staff",
+        description = "Patients who have had 2 or more members of staff"
+    )
+    @ApiResponses(
+        {
+            @ApiResponse(
+                responseCode = "200",
+                description = "Ok - Patients returned"
+            ),
+            @ApiResponse(
+                responseCode = "500",
+                description = "Parse error - Failed to parse string into a class"
+            ),
+            @ApiResponse(
+                responseCode = "503",
+                description = "API error - Failed to reach the UoP API"
+            ),
+        }
+    )
     @GetMapping("/patients/multi-staff")
     public ResponseEntity<ObjectNode> getReadmittedAdmissions() {
         // create a hashmap key: patientId, value: employeeId[]
