@@ -16,7 +16,7 @@ public class MainMenu extends JFrame {
     private JLabel titleLabel;
 
     private final String GITHUB_REPO_LINK =
-        "https://github.com/bobbymannino/comp2005-report";
+        "https://github.com/Plymouth-University/comp2005-assessment2-bobbymannino";
 
     public MainMenu() {
         setTitle("COMP2005 Java App");
