@@ -279,6 +279,10 @@ that something is happening which makes them more comfortable with waiting. It's
 not a fabulous or pretty UI but it is functional enough that the user is aware
 they are waiting while something is happening.
 
+##### UAT
+
+I have written a UAT test for people to see how well the app is working,
+
 #### Automated Testing
 
 I have enabled automatic testing via GitHub actions. This way they can be
