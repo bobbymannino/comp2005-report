@@ -2,7 +2,6 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.example.library.records.Patient;
 import com.example.library.utils.StringParseError;
 import com.example.library.utils.StringParser;
 import org.junit.jupiter.api.Test;
