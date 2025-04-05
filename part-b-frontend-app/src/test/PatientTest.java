@@ -1,5 +1,6 @@
-package com.example.library.records;
+package test;
 
+import com.example.library.records.Patient;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.annotation.Testable;
 
@@ -27,6 +28,17 @@ class PatientTest {
         Patient patient = new Patient(1, "Joe", "Bob", "22121979");
 
         assertEquals(1, patient.id);
+        assertEquals(patient.firstName, "Bob");
+        assertEquals(patient.lastName, "Joe");
+        assertEquals(patient.getFullName(), "Bob Joe");
+        assertEquals(patient.nhsNumber, "22121979");
+    }
+
+    @Test
+    void testPatientSansId() {
+        Patient patient = new Patient(null, "Joe", "Bob", "22121979");
+
+        assertNull(patient.id);
         assertEquals(patient.firstName, "Bob");
         assertEquals(patient.lastName, "Joe");
         assertEquals(patient.getFullName(), "Bob Joe");
