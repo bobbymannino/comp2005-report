@@ -2,6 +2,7 @@ package com.example.comp2005_report;
 
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.annotation.Testable;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
 import java.util.Calendar;
 
