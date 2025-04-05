@@ -200,14 +200,18 @@ would round the difference up, so it was a good job I tested it!
 
 In case somebody new wanted to understand or even work on the API I have added
 an OpenAPI generator plugin to my project. This way somebody can understand
-the endpoints quickly which will save time and money in the long run. Here is a screenshot of one of the endpoints:
+the endpoints quickly which will save time and money in the long run. Here is a
+screenshot of one of the endpoints:
 
 ![Swagger web GUI](./screenshots/swagger.png)
 
-A statistic that matters in test code coverage. This is the percent of your code that has been put through a test, this could be measured by line, unit, classes, files, and more.
+A statistic that matters in test code coverage. This is the percent of your code
+that has been put through a test, this could be measured by line, unit, classes,
+files, and more. I used JaCoCo to get a report of how much of the code i've
+written is tested when running the tests. This is good for resolving blindspots
+and limiting production errors.
 
-> [!NOTE]
-> I AM HERE /\
+![API code coverage](./screenshots/api-code-coverage.png)
 
 #### App Testing
 
@@ -224,7 +228,10 @@ as that name, this way the user will see that they don't have a name. I would
 put this under #10 which is help and documentation as it helps the user
 understand this user does not have a name set.
 
-I have a utility class `StringParser` which helps me take in a string and parse it into a class. I tested this on its own but also with a `Patient` string, this way I can test the name fallback and parser at once. I did a few tests so here's an example:
+I have a utility class `StringParser` which helps me take in a string and parse
+it into a class. I tested this on its own but also with a `Patient` string, this
+way I can test the name fallback and parser at once. I did a few tests so here's
+an example:
 
 ```java
 @Test
@@ -253,15 +260,24 @@ public static void showError(String message, JPanel contentPane) {
 }
 ```
 
-I created 3 severities of there: warning, error, and info. And when invoked I would populate the message with something that would tell the user what has gone wrong (e.g. "cannot connect to the uni API") and then something they could do to help fix the error or how to contact support (e.g. "contact blah@icloud.com for assistance").
+I created 3 severities of there: warning, error, and info. And when invoked I
+would populate the message with something that would tell the user what has gone
+wrong (e.g. "cannot connect to the uni API") and then something they could do to
+help fix the error or how to contact support (e.g. "contact blah@icloud.com for
+assistance").
 
-A small thing I added across all screens was a close button at the bottom of
-the page. This follows the 10UHs 4th rule: consistency and standards. By having a close button on every page and in the same spot (which happens to be where most close/cancel buttons are in software) really helps with keeping the user comfortable and familiar with the UI.
+A small thing I added across all screens was a close button at the bottom of the
+page. This follows the 10UHs 4th rule: consistency and standards. By having a
+close button on every page and in the same spot (which happens to be where most
+close/cancel buttons are in software) really helps with keeping the user
+comfortable and familiar with the UI.
 
 Following Jakobs 1st principle we have show the user system status, keep them
 aware of whats going on. So after the user clicks the button to open the window
 there will be a loading state appear. This is useful because it shows the user
-that something is happening which makes them more comfortable with waiting. It's not a fabulous or pretty UI but it is functional enough that the user is aware they are waiting while something is happening.
+that something is happening which makes them more comfortable with waiting. It's
+not a fabulous or pretty UI but it is functional enough that the user is aware
+they are waiting while something is happening.
 
 #### Automated Testing
 

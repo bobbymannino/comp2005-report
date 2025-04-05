@@ -33,3 +33,7 @@ the source code for both the [API](./part-a-web-service-api) and the [App](./par
 ### API GitHub Action
 
 ![API GitHub action](./screenshots/api-gh-action.png)
+
+### API Code Coverage
+
+![API code coverage](./screenshots/api-code-coverage.png)

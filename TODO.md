@@ -1,7 +1,10 @@
 # TODO
 
-- [ ] (do) swap repo over to gh classroom repo
-- [ ] (do, write) code coverage
+on tuesday ask Sir Mark:
+
+- is he expecting uat to be short as app is very simple?
+- how to add unit tests to app
+
 - [ ] (code) app unit tests
 - [ ] (code) app integration tests
 - [ ] (code) app system tests
@@ -12,7 +15,8 @@
   3. is it labeled well
   4. feedback
 - [ ] (do, write) make UAT questionnaire thing
-  [JISC](https://onlinesurverys.ac.uk)
+      [JISC](https://app.onlinesurveys.jisc.ac.uk/survey/cm8ooz0iw00q3jl089hfko319/build)
+
 - [ ] (do, write) perform UAT test
 - [ ] (code, write) make changes based on UAT results
 - [ ] (write) evaluation
