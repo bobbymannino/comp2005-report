@@ -2,8 +2,6 @@ package com.example.library.forms;
 
 import com.example.library.records.Patient;
 import com.example.library.utils.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;

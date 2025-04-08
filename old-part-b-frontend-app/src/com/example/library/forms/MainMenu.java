@@ -2,9 +2,7 @@ package com.example.library.forms;
 
 import com.example.library.utils.MessageDialog;
 import java.awt.*;
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import javax.swing.*;
 
 public class MainMenu extends JFrame {
