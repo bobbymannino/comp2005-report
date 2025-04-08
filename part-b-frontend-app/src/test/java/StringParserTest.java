@@ -1,12 +1,11 @@
-package test;
-
-import com.example.library.records.Patient;
-import com.example.library.utils.StringParseError;
-import com.example.library.utils.StringParser;
+import com.example.comp2005_report.records.Patient;
+import com.example.comp2005_report.utils.StringParseError;
+import com.example.comp2005_report.utils.StringParser;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.annotation.Testable;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Testable
 class StringParserTest {

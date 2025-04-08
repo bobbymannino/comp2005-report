@@ -1,10 +1,9 @@
-package test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import com.example.library.utils.ApiError;
+import com.example.comp2005_report.utils.ApiError;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.annotation.Testable;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Testable
 class ApiErrorTest {

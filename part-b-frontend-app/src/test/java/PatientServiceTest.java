@@ -1,9 +1,7 @@
-package test;
-
-import com.example.library.records.Patient;
-import com.example.library.utils.ApiError;
-import com.example.library.utils.PatientService;
-import com.example.library.utils.StringParseError;
+import com.example.comp2005_report.records.Patient;
+import com.example.comp2005_report.utils.ApiError;
+import com.example.comp2005_report.utils.PatientService;
+import com.example.comp2005_report.utils.StringParseError;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.annotation.Testable;
 

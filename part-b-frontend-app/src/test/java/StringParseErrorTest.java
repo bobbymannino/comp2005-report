@@ -1,11 +1,9 @@
-package test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import com.example.library.utils.StringParseError;
-import com.example.library.utils.StringParser;
+import com.example.comp2005_report.utils.StringParseError;
+import com.example.comp2005_report.utils.StringParser;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.annotation.Testable;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Testable
 class StringParseErrorTest {
