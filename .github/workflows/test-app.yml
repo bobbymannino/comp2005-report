@@ -1,4 +1,4 @@
-name: Test Java API
+name: Test Java APP
 run-name: ${{ github.actor }}, lets hope this works!
 
 on:
