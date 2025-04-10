@@ -326,4 +326,35 @@ And here is a screenshot of the pipeline succeeding:
 
 ### Evaluation
 
-- why i have tested it the way i have
+The test strategy I have implemented in this project hopefully shows my
+understanding of testing as a whole as well as on an individual level.
+
+I chose to follow a test driven approach to my testing because I found that it
+works best for me, I find the functional coding easier than the testing. The API
+is testable without human interaction so that can be fully automated (which it
+is) but something with a GUI should be tested using human interaction too.
+
+I chose to use unit, system, and integration tests for both app & API.˚I chose
+all these because the more testing the better especially different types. For
+the app it is important to have these as well as user acceptance tests. UAT is
+there to ensure that the actual use of the app works as expected as well as
+being optimized for the users using it. All of these combined provide a suitable
+test suite for production ready software.
+
+I also used regression testing to ensure that any changes I made would not break
+the existing system. I used this through development from adding the first bit
+of code.
+
+#### Strengths
+
+- Code coverage for the API is in the 90s
+- Code is verbose and commented where needed, this helps new people understand
+  the codebase quicker
+- Automated testing for both the API and the app
+
+#### Weaknesses
+
+- There is little mention of mocking external dependencies, particularly for the
+  university API. Tests that rely on external systems should be mocked for
+  improved testability
+- I did not test performance in any way
