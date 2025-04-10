@@ -1,0 +1,30 @@
+name: Test Java API
+run-name: ${{ github.actor }}, lets hope this works!
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test-api:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "23"
+      - name: "Gradle build"
+        run: |
+          cd part-b-frontend-app
+          ./gradlew build
+      - name: "Gradle test"
+        run: |
+          cd part-b-frontend-app
+          ./gradlew test
