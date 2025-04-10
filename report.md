@@ -2,9 +2,7 @@
 
 GitHub Repo: [https://github.com/Plymouth-University/comp2005-assessment2-bobbymannino](https://github.com/Plymouth-University/comp2005-assessment2-bobbymannino)
 
-<!-- TODO add youtube video -->
-
-YouTube Video: [http://youtu.be](https://youtu.be)
+YouTube Video: [https://youtu.be/fkzyoxktT6E](https://youtu.be/fkzyoxktT6E)
 
 ## Test Plan
 
