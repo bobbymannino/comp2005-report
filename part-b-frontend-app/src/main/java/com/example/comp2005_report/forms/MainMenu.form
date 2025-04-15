@@ -32,6 +32,7 @@
         </constraints>
         <properties>
           <font name="Fira Mono"/>
+          <foreground color="-6152165"/>
           <text value="Close App"/>
         </properties>
       </component>

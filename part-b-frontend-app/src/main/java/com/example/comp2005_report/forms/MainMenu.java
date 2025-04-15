@@ -85,6 +85,7 @@ public class MainMenu extends JFrame {
         closeButton = new JButton();
         Font closeButtonFont = this.$$$getFont$$$("Fira Mono", -1, -1, closeButton.getFont());
         if (closeButtonFont != null) closeButton.setFont(closeButtonFont);
+        closeButton.setForeground(new Color(-6152165));
         closeButton.setText("Close App");
         contentPane.add(closeButton, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();

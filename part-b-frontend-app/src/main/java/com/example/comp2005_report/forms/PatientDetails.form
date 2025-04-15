@@ -29,6 +29,7 @@
         <properties>
           <font name="Fira Mono"/>
           <text value="Close"/>
+          <foreground color="-6152165"/>
         </properties>
       </component>
       <component id="4b9d9" class="javax.swing.JLabel" binding="idLabel">
