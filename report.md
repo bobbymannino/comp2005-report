@@ -4,6 +4,8 @@ GitHub Repo: [https://github.com/Plymouth-University/comp2005-assessment2-bobbym
 
 YouTube Video: [https://youtu.be/fkzyoxktT6E](https://youtu.be/fkzyoxktT6E)
 
+<small>I did the video before I made changes based on the UAT</small>
+
 ## Test Plan
 
 I have been tasked with creating an API that interacts with a predefined API,
@@ -277,9 +279,48 @@ that something is happening which makes them more comfortable with waiting. It's
 not a fabulous or pretty UI but it is functional enough that the user is aware
 they are waiting while something is happening.
 
-##### UAT
+##### User Acceptance Testing
 
-I have written a UAT test for people to see how well the app is working,
+I have performed UAT testing on 4 different people. The questions were aimed at
+3 things: efficacy of the app, UI/UX & error handling. There are some questions
+about the UAT process but those are more for me then the app. The UAT gave me a
+lot of valuable feedback on how to improve the app for the users. Some of the
+changes I have made based on the feedback is as follows:
+
+- Close button text "Close App" on main menu
+- Close buttons text color now red
+- Larger font size
+- Alternating list row background color
+- List row padding
+
+I had the API running in the background already so the user doesn't have to
+worry about it. I did also have somebody feedback that even to test the app
+should be an exe instead of a jar file. For each person I had the command `java
+-jar blah.jar` ready in the terminal so they just have to hit enter but as this
+person pointed out that is not user friendly.
+
+One good thing about being a jar vs exe is compatibility, jar can run anywhere
+with java where as exe is only windows. The feedback was still taken in and I
+would have made the change except he was the last tester. It is still valuable
+advice that I will remember for any time I ask someone to test something.
+
+List UI Before:
+
+![List UI before](./screenshots/list-before.png)
+
+List UI After:
+
+![List UI after](./screenshots/list-after.png)
+
+UAT Questions & Answers:
+
+![UAT Questions & Results](./screenshots/uat.jpg)
+
+The UAT is a perfect addition to the test suite as it allows a developer to have
+the insight of a non-technical person. To me at least this is not possible
+otherwise, I see things in such a different light that without this form of
+testing I would not be making the app as well as I could for the users who will
+actually use it.
 
 #### Automated Testing
 
@@ -358,3 +399,5 @@ of code.
   university API. Tests that rely on external systems should be mocked for
   improved testability
 - I did not test performance in any way
+- Did not componentize anything in the app making it harder to
+  change in the future
