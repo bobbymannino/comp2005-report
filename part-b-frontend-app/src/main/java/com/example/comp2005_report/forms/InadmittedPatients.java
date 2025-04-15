@@ -184,12 +184,20 @@ public class InadmittedPatients extends JFrame {
         // set patient list element's model to the one we made
         patientJList.setModel(listModel);
         
-        // Add vertical padding to each row
+        // Add padding and alternating background colors to each row
         patientJList.setCellRenderer(new DefaultListCellRenderer() {
+            private final Color evenRowColor = new Color(245, 245, 250); // light bluish-gray
+            private final Color oddRowColor = Color.WHITE;
+            
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 renderer.setBorder(BorderFactory.createEmptyBorder(5, 6, 5, 6));
+                
+                if (!isSelected) {
+                    renderer.setBackground(index % 2 == 1 ? evenRowColor : oddRowColor);
+                }
+                
                 return renderer;
             }
         });
