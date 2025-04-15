@@ -4,7 +4,6 @@ import com.example.comp2005_report.records.Patient;
 import com.example.comp2005_report.utils.*;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -22,7 +21,7 @@ public class InadmittedPatients extends JFrame {
     private JButton closeButton;
     private JList patientJList;
 
-    private static final boolean SHOW_PATIENT_ID_IN_LIST = true;
+    private static final boolean SHOW_PATIENT_ID_IN_LIST = false;
 
     public InadmittedPatients() {
         setContentPane(contentPane);
@@ -61,8 +60,8 @@ public class InadmittedPatients extends JFrame {
             patientIds = AdmissionService.getInadmittedPatients();
         } catch (ApiError e) {
             MessageDialog.showError(
-                    "Something went wrong with the local API service, are you sure it's running?",
-                    contentPane
+                "Something went wrong with the local API service, are you sure it's running?",
+                contentPane
             );
 
             dispose();
@@ -70,8 +69,8 @@ public class InadmittedPatients extends JFrame {
             return null;
         } catch (StringParseError e) {
             MessageDialog.showError(
-                    "The local API returned malformed data, contact support at soso@yahoo.co.uk",
-                    contentPane
+                "The local API returned malformed data, contact support at soso@yahoo.co.uk",
+                contentPane
             );
 
             dispose();
@@ -82,8 +81,8 @@ public class InadmittedPatients extends JFrame {
         // if there are no patient IDs then tell the user and close
         if (patientIds.length == 0) {
             MessageDialog.showInfo(
-                    "There are no patients who have not been admitted.",
-                    contentPane
+                "There are no patients who have not been admitted.",
+                contentPane
             );
 
             dispose();
@@ -104,8 +103,8 @@ public class InadmittedPatients extends JFrame {
     private List<Patient> getPatientsOrNull(Integer[] patientIds) {
         if (patientIds.length == 0) {
             MessageDialog.showInfo(
-                    "There are no patients who have not been admitted.",
-                    contentPane
+                "There are no patients who have not been admitted.",
+                contentPane
             );
 
             dispose();
@@ -123,8 +122,8 @@ public class InadmittedPatients extends JFrame {
         // if failed to get every patients details, alert the user and dispose the window
         if (patients.isEmpty()) {
             MessageDialog.showError(
-                    "There are patient IDs but we cannot get any details about them, please contact support bob@uop.ac.uk",
-                    contentPane
+                "There are patient IDs but we cannot get any details about them, please contact support bob@uop.ac.uk",
+                contentPane
             );
 
             dispose();
@@ -139,10 +138,10 @@ public class InadmittedPatients extends JFrame {
         // show the user how many users we couldn't get details for, this means we have
         // at least 1 patients details
         if (failedPatientCount > 0) MessageDialog.showWarning(
-                "There are " +
-                        failedPatientCount +
-                        " patient(s) that we could not fetch.",
-                contentPane
+            "There are " +
+            failedPatientCount +
+            " patient(s) that we could not fetch.",
+            contentPane
         );
 
         return patients;
@@ -159,7 +158,7 @@ public class InadmittedPatients extends JFrame {
             String patientRowTextsStr = patient.getFullName();
 
             if (SHOW_PATIENT_ID_IN_LIST) patientRowTextsStr +=
-                    " (ID: " + patient.id + ")";
+                " (ID: " + patient.id + ")";
 
             patientRowTexts.add(patientRowTextsStr);
         }
@@ -187,27 +186,27 @@ public class InadmittedPatients extends JFrame {
 
         // on double click, open patient details
         patientJList.addMouseListener(
-                new MouseAdapter() {
-                    public void mouseClicked(MouseEvent event) {
-                        // only on double click
-                        if (event.getClickCount() == 2) {
-                            // get index of list item that was double-clicked
-                            int index = patientJList.locationToIndex(
-                                    event.getPoint()
-                            );
+            new MouseAdapter() {
+                public void mouseClicked(MouseEvent event) {
+                    // only on double click
+                    if (event.getClickCount() == 2) {
+                        // get index of list item that was double-clicked
+                        int index = patientJList.locationToIndex(
+                            event.getPoint()
+                        );
 
-                            // if click out of bounds do nothing
-                            if (index == -1) return;
+                        // if click out of bounds do nothing
+                        if (index == -1) return;
 
-                            // open a window with their details
-                            new PatientDetails(patients.get(index).id);
-                        }
+                        // open a window with their details
+                        new PatientDetails(patients.get(index).id);
                     }
                 }
+            }
         );
 
         titleLabel.setText(
-                "Never Admitted Patients (" + patientRowTexts.size() + ")"
+            "Never Admitted Patients (" + patientRowTexts.size() + ")"
         );
         titleLabel.setIcon(null);
 
@@ -215,9 +214,9 @@ public class InadmittedPatients extends JFrame {
     }
 
     {
-// GUI initializer generated by IntelliJ IDEA GUI Designer
-// >>> IMPORTANT!! <<<
-// DO NOT EDIT OR ADD ANY CODE HERE!
+        // GUI initializer generated by IntelliJ IDEA GUI Designer
+        // >>> IMPORTANT!! <<<
+        // DO NOT EDIT OR ADD ANY CODE HERE!
         $$$setupUI$$$();
     }
 
@@ -230,26 +229,116 @@ public class InadmittedPatients extends JFrame {
      */
     private void $$$setupUI$$$() {
         contentPane = new JPanel();
-        contentPane.setLayout(new GridLayoutManager(4, 2, new Insets(16, 16, 16, 16), 8, 8));
+        contentPane.setLayout(
+            new GridLayoutManager(4, 2, new Insets(16, 16, 16, 16), 8, 8)
+        );
         titleLabel = new JLabel();
-        Font titleLabelFont = this.$$$getFont$$$("Fira Mono", Font.BOLD, 24, titleLabel.getFont());
+        Font titleLabelFont =
+            this.$$$getFont$$$(
+                    "Fira Mono",
+                    Font.BOLD,
+                    24,
+                    titleLabel.getFont()
+                );
         if (titleLabelFont != null) titleLabel.setFont(titleLabelFont);
         titleLabel.setText("Never Admitted Patients");
-        contentPane.add(titleLabel, new GridConstraints(0, 0, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(
+            titleLabel,
+            new GridConstraints(
+                0,
+                0,
+                1,
+                2,
+                GridConstraints.ANCHOR_WEST,
+                GridConstraints.FILL_NONE,
+                GridConstraints.SIZEPOLICY_FIXED,
+                GridConstraints.SIZEPOLICY_FIXED,
+                null,
+                null,
+                null,
+                0,
+                false
+            )
+        );
         closeButton = new JButton();
+        Font closeButtonFont =
+            this.$$$getFont$$$("Fira Mono", -1, -1, closeButton.getFont());
+        if (closeButtonFont != null) closeButton.setFont(closeButtonFont);
+        closeButton.setForeground(new Color(-6152165));
         closeButton.setText("Close");
-        contentPane.add(closeButton, new GridConstraints(3, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(
+            closeButton,
+            new GridConstraints(
+                3,
+                0,
+                1,
+                2,
+                GridConstraints.ANCHOR_CENTER,
+                GridConstraints.FILL_HORIZONTAL,
+                GridConstraints.SIZEPOLICY_CAN_SHRINK |
+                GridConstraints.SIZEPOLICY_CAN_GROW,
+                GridConstraints.SIZEPOLICY_FIXED,
+                null,
+                null,
+                null,
+                0,
+                false
+            )
+        );
         patientJList = new JList();
-        contentPane.add(patientJList, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
+        patientJList.setSelectionMode(0);
+        contentPane.add(
+            patientJList,
+            new GridConstraints(
+                2,
+                0,
+                1,
+                1,
+                GridConstraints.ANCHOR_CENTER,
+                GridConstraints.FILL_BOTH,
+                GridConstraints.SIZEPOLICY_CAN_GROW,
+                GridConstraints.SIZEPOLICY_WANT_GROW,
+                null,
+                new Dimension(150, 50),
+                null,
+                0,
+                false
+            )
+        );
         final JLabel label1 = new JLabel();
+        Font label1Font =
+            this.$$$getFont$$$("Fira Mono", -1, -1, label1.getFont());
+        if (label1Font != null) label1.setFont(label1Font);
         label1.setText("Double click an employee to see their details");
-        contentPane.add(label1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(
+            label1,
+            new GridConstraints(
+                1,
+                0,
+                1,
+                1,
+                GridConstraints.ANCHOR_WEST,
+                GridConstraints.FILL_NONE,
+                GridConstraints.SIZEPOLICY_FIXED,
+                GridConstraints.SIZEPOLICY_FIXED,
+                null,
+                null,
+                null,
+                0,
+                false
+            )
+        );
     }
 
     /**
      * @noinspection ALL
      */
-    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
+    private Font $$$getFont$$$(
+        String fontName,
+        int style,
+        int size,
+        Font currentFont
+    ) {
         if (currentFont == null) return null;
         String resultName;
         if (fontName == null) {
@@ -262,10 +351,21 @@ public class InadmittedPatients extends JFrame {
                 resultName = currentFont.getName();
             }
         }
-        Font font = new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
-        boolean isMac = System.getProperty("os.name", "").toLowerCase(Locale.ENGLISH).startsWith("mac");
-        Font fontWithFallback = isMac ? new Font(font.getFamily(), font.getStyle(), font.getSize()) : new StyleContext().getFont(font.getFamily(), font.getStyle(), font.getSize());
-        return fontWithFallback instanceof FontUIResource ? fontWithFallback : new FontUIResource(fontWithFallback);
+        Font font = new Font(
+            resultName,
+            style >= 0 ? style : currentFont.getStyle(),
+            size >= 0 ? size : currentFont.getSize()
+        );
+        boolean isMac = System.getProperty("os.name", "")
+            .toLowerCase(Locale.ENGLISH)
+            .startsWith("mac");
+        Font fontWithFallback = isMac
+            ? new Font(font.getFamily(), font.getStyle(), font.getSize())
+            : new StyleContext()
+                .getFont(font.getFamily(), font.getStyle(), font.getSize());
+        return fontWithFallback instanceof FontUIResource
+            ? fontWithFallback
+            : new FontUIResource(fontWithFallback);
     }
 
     /**
