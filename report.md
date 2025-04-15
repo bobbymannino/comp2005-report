@@ -363,7 +363,7 @@ jobs:
 
 And here is a screenshot of the pipeline succeeding:
 
-![GitHub action for API](./screenshots/api-gh-action.png)
+![GitHub action for API](./screenshots/gh-actions.png)
 
 ### Evaluation
 
