@@ -7,3 +7,4 @@
     3. is it labeled well
     4. feedback
   - Make changes based on UAT results
+- difficult to open app
