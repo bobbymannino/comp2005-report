@@ -21,6 +21,8 @@ YouTube Video: [https://youtu.be/fkzyoxktT6E](https://youtu.be/fkzyoxktT6E)
 
 <small>Note: I did the video before I made changes based on the UAT</small>
 
+---
+
 ## Test Plan
 
 I have been tasked with creating an API that interacts with a predefined API,
