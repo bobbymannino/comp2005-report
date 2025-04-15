@@ -183,6 +183,16 @@ public class InadmittedPatients extends JFrame {
 
         // set patient list element's model to the one we made
         patientJList.setModel(listModel);
+        
+        // Add vertical padding to each row
+        patientJList.setCellRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                renderer.setBorder(BorderFactory.createEmptyBorder(5, 6, 5, 6));
+                return renderer;
+            }
+        });
 
         // on double click, open patient details
         patientJList.addMouseListener(
