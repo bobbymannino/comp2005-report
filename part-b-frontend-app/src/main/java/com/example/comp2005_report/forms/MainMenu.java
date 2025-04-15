@@ -1,6 +1,10 @@
 package com.example.comp2005_report.forms;
 
 import com.example.comp2005_report.utils.MessageDialog;
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
+import com.intellij.uiDesigner.core.Spacer;
+
 import java.awt.*;
 import java.net.URI;
 import java.util.Locale;
@@ -67,25 +71,29 @@ public class MainMenu extends JFrame {
      */
     private void $$$setupUI$$$() {
         contentPane = new JPanel();
-        contentPane.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(5, 2, new Insets(16, 16, 16, 16), 8, 8));
+        contentPane.setLayout(new GridLayoutManager(5, 2, new Insets(16, 16, 16, 16), 8, 8));
         patientsWhoHaveNotButton = new JButton();
         Font patientsWhoHaveNotButtonFont = this.$$$getFont$$$("Fira Mono", -1, -1, patientsWhoHaveNotButton.getFont());
         if (patientsWhoHaveNotButtonFont != null) patientsWhoHaveNotButton.setFont(patientsWhoHaveNotButtonFont);
         patientsWhoHaveNotButton.setText("Never Admitted Patients");
-        contentPane.add(patientsWhoHaveNotButton, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(patientsWhoHaveNotButton, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         titleLabel = new JLabel();
         Font titleLabelFont = this.$$$getFont$$$("Fira Mono", Font.BOLD, 24, titleLabel.getFont());
         if (titleLabelFont != null) titleLabel.setFont(titleLabelFont);
         titleLabel.setText("COMP2005 Java App");
-        contentPane.add(titleLabel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(titleLabel, new GridConstraints(0, 0, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         closeButton = new JButton();
-        closeButton.setText("Close");
-        contentPane.add(closeButton, new com.intellij.uiDesigner.core.GridConstraints(4, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final com.intellij.uiDesigner.core.Spacer spacer1 = new com.intellij.uiDesigner.core.Spacer();
-        contentPane.add(spacer1, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        Font closeButtonFont = this.$$$getFont$$$("Fira Mono", -1, -1, closeButton.getFont());
+        if (closeButtonFont != null) closeButton.setFont(closeButtonFont);
+        closeButton.setText("Close App");
+        contentPane.add(closeButton, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final Spacer spacer1 = new Spacer();
+        contentPane.add(spacer1, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         openGitHubRepoButton = new JButton();
+        Font openGitHubRepoButtonFont = this.$$$getFont$$$("Fira Mono", -1, -1, openGitHubRepoButton.getFont());
+        if (openGitHubRepoButtonFont != null) openGitHubRepoButton.setFont(openGitHubRepoButtonFont);
         openGitHubRepoButton.setText("Open GitHub Repo");
-        contentPane.add(openGitHubRepoButton, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(openGitHubRepoButton, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
@@ -116,4 +124,5 @@ public class MainMenu extends JFrame {
     public JComponent $$$getRootComponent$$$() {
         return contentPane;
     }
+
 }
