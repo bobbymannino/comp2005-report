@@ -11,19 +11,19 @@ import org.junit.platform.commons.annotation.Testable;
 class AdmissionUtilsTest {
 
     @Test
-    void testEdgeCaseWithin7Days() {
+    void testEdgeCaseWithin7Days1() {
         // arrange
         AdmissionClass admission1 = new AdmissionClass(
-            1,
-            "1979-12-22T15:00:00",
-            "1979-12-22T15:00:00",
-            1
+                1,
+                "1979-12-22T15:00:00",
+                "1979-12-22T15:00:00",
+                1
         );
         AdmissionClass admission2 = new AdmissionClass(
-            2,
-            "1979-12-29T15:00:00",
-            null,
-            1
+                2,
+                "1979-12-29T15:00:00",
+                null,
+                1
         );
 
         List<AdmissionClass> admissions = new ArrayList<>();
@@ -32,10 +32,66 @@ class AdmissionUtilsTest {
 
         // act
         boolean isReadmittedWithin7Days =
-            AdmissionUtils.isPatientReadmittedWithin7Days(admissions);
+                AdmissionUtils.isPatientReadmittedWithin7Days(admissions);
 
         // assert
         assertTrue(isReadmittedWithin7Days);
+    }
+
+    @Test
+    void testEdgeCaseWithin7Days2() {
+        // arrange
+        AdmissionClass admission1 = new AdmissionClass(
+                1,
+                "1979-12-22T15:00:00",
+                "1979-12-22T15:00:00",
+                1
+        );
+        AdmissionClass admission2 = new AdmissionClass(
+                2,
+                "1979-12-29T15:00:01",
+                null,
+                1
+        );
+
+        List<AdmissionClass> admissions = new ArrayList<>();
+        admissions.add(admission1);
+        admissions.add(admission2);
+
+        // act
+        boolean isReadmittedWithin7Days =
+                AdmissionUtils.isPatientReadmittedWithin7Days(admissions);
+
+        // assert
+        assertFalse(isReadmittedWithin7Days);
+    }
+
+    @Test
+    void testEdgeCaseWithin7Days3() {
+        // arrange
+        AdmissionClass admission1 = new AdmissionClass(
+                1,
+                "1979-12-22T15:00:00",
+                "1979-12-22T14:59:59",
+                1
+        );
+        AdmissionClass admission2 = new AdmissionClass(
+                2,
+                "1979-12-29T15:00:00",
+                null,
+                1
+        );
+
+        List<AdmissionClass> admissions = new ArrayList<>();
+        admissions.add(admission1);
+        admissions.add(admission2);
+
+        // act
+        boolean isReadmittedWithin7Days =
+                AdmissionUtils.isPatientReadmittedWithin7Days(admissions);
+
+        // assert
+        assertFalse(isReadmittedWithin7Days);
     }
 
     @Test
